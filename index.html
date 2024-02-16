@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rishi Goel</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Example CSS animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animated {
+            animation: slideIn 1s ease-out;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -80,5 +96,12 @@
         <p>Email: rishigoel25@gmail.com</p>
         <p>Phone: +61 432 861 001</p>
     </footer>
+    <script>
+        // Example JavaScript interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            header.classList.add('animated');
+        });
+    </script>
 </body>
 </html>
