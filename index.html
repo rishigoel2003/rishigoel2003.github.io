@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rishi Goel</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
+    <style> 
         /* Example CSS animation */
 
-        /* .animated {
+        .animated {
             animation: slideIn 1s ease-out;
         } */
 
-        /* .animated-slide-in {
-            animation: slideInFromLeft 1s ease-out;
-        } */
+        .animated-slide-in {
+        animation: slideInFromLeft 1s ease-out;
+    }
     </style>
 </head>
 <body>
@@ -79,11 +79,11 @@
             <h2>Volunteering</h2>
             <ul>
                 <li>
-                    <h3>Job Title 1</h3>
+                    <h3>Junior Physics Odyssey</h3>
                     <p>Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
                 <li>
-                    <h3>Job Title 2</h3>
+                    <h3>Young Achievers Mentor</h3>
                     <p>Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
@@ -109,7 +109,7 @@
                     <p>Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
                 <li>
-                    <h3>Job Title 2</h3>
+                    <h3></h3>
                     <p>Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
@@ -138,27 +138,16 @@
         <p>Phone: +61 432 861 001</p>
     </footer>
     <script>
-        // Example JavaScript interactivity
         document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('header');
-            header.classList.add('animated');
-        
-            const main = document.querySelector('main');
-            header.classList.add('animated');
-        
-            const footer = document.querySelector('footer');
-            header.classList.add('animated');
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section');
+            const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animated-slide-in');
+                        entry.target.classList.add('animated-slide-in'); // Adding the correct class to animate
                     }
                 });
             }, { threshold: 0.5 });
-
+    
             sections.forEach(section => {
                 observer.observe(section);
             });
