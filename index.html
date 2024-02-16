@@ -20,6 +20,17 @@
         .animated {
             animation: slideIn 1s ease-out;
         }
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        .animated-slide-in {
+            animation: slideInFromLeft 1s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -49,10 +60,10 @@
             hierarchical time series forecasting and quantum machine learning kernel
             methods.</p>
 
-        </section id = "publications">
+        <section id = "publications">
             <h2>Publications</h2>
             <p>Recently Published ...</p>
-        </section id = "Work Experience">
+        <section id = "Work Experience">
             <h2>Work Experience</h2>
             <ul>
                 <li>
@@ -66,7 +77,7 @@
                 <!-- Add more job items as needed -->
             </ul>
 
-        </section id = "Leadership & Entrepreneurship">  
+        <section id = "Leadership & Entrepreneurship">  
             <h2>Leadership & Entrepreneurship</h2>
             <ul>
                 <li>
@@ -80,7 +91,7 @@
                 <!-- Add more job items as needed -->
             </ul>
 
-        </section id = "Volunteering">
+        <section id = "Volunteering">
             <h2>Volunteering</h2>
             <ul>
                 <li>
@@ -111,6 +122,20 @@
         
             const footer = document.querySelector('footer');
             header.classList.add('animated');
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated-slide-in');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
     </script>
 </body>
