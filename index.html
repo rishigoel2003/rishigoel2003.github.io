@@ -6,36 +6,78 @@
     <title>Rishi Goel</title>
     <link rel="stylesheet" href="styles.css">
     <style> 
-        /* Example CSS animation */
 
         .animated {
             animation: slideIn 1s ease-out;
-        } */
+        } 
 
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-30%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        
         .animated-slide-in {
-        animation: slideInFromLeft 1s ease-out;
-    }
+            animation: slideInFromLeft 1s ease-out;
+        }
+
+        .description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .description.visible {
+            max-height: 0; /* Adjust as needed */
+        }
+
+        li {
+            margin-bottom: 10px; /* Add margin between list items */
+            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
+        }
+
+        li.hidden-description {
+            margin-bottom: -30px; /* Reduce margin when description is hidden */
+        }
+
+        
     </style>
 </head>
 <body>
     <header>
-        <img src="headshot.jpg" alt="Rishi Goel's headshot">
-        <h1>Rishi Goel</h1>
+        <img src="rytte.jpg" alt="Rishi Goel's headshot" style="width: 80%;">
+        <h1>Who's This Rishi Guy?</h1>
         <nav>
             <ul>
-                <li><a href="#about">About</a></li>
+                <li><a href="#about me">About Me</a></li>
                 <li><a href="#publications">Publications</a></li>
                 <li><a href="#Work Experience">Work Experience</a></li>
-                <li><a href="#Leadership and Entrepreneurship">Leadership and Entrepreneurship</a></li>
-                
+                <li><a href="#Leadership & Entrepreneurship">Leadership & Entrepreneurship</a></li>
+                <li><a href="#Volunteering">Volunteering</a></li>
+                <li><a href="#Education">Education</a></li>
+                <li><a href="#Awards">Awards</a></li>
+                <li><a href="#Languages">Languages</a></li>
+                <li><a href="#Hobbies">Hobbies</a></li>
+
                 <!-- Add other navigation links -->
             </ul>
         </nav>
+        <p>
+            <a href="mailto:rishigoel25@gmail.com" style="text-decoration: none; font-size: 48px;" >✉️</a>
+            <a href="tel:+61432861001" style="text-decoration: none; font-size: 43px;">📞</a>
+            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style = "width:5%; margin-right: 10px;"></a>
+            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram"style = "width:3%; margin-right: 10px;"></a>
+            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="Linkedin_logo.png" alt="Linkedin" style = "width:3%; margin-right: 10px;"></a>
+        </p>
     </header>
     <main>
-        <section id="about">
+        <section id="about me" class="animated-slide-in">
+            
             <h2>About Me</h2>
-            <p>Highly motivated and enthusiastic physics student who wishes to ensure
+             <p>Highly motivated and enthusiastic physics student who wishes to ensure
             mathematical algorithms are used for the betterment of human lives. As
             passionate about research and innovation as for sustainability. Currently in
             semester 1 of fourth year of university - recently returned from exchange at
@@ -46,31 +88,68 @@
 
         <section id = "publications">
             <h2>Publications</h2>
-            <p>Recently Published ...</p>
+             <p>Recently Published ...</p>
         <section id = "Work Experience">
             <h2>Work Experience</h2>
             <ul>
-                <li>
-                    <h3>Job Title 1</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 1.</p>
+                <li class="hidden-description">
+                    <h3>Intern Software Developer</h3>
+                    <p class="description">Created a novel fare-based journey planner for train networks around the UK to incorporate split ticketing and 
+                        balance of cost vs time. Found cheaper journeys in 64% of top trips vs current status quo algorithms.
+                    </p>
                 </li>
-                <li>
-                    <h3>Job Title 2</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 2.</p>
+                <li class="hidden-description">
+                    <h3>Winter Research Project Scholar</h3>
+                    <p class="description">Lead researcher working with Dr Mahdi Abolghasemi on novel research applying graph neural networks and 
+                        lightGBM ML models to hierarchical time series data.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Casual Academic UQ</h3>
+                    <p class="description">Tutor for SCIE1200 - Introduction to Science Research, MATH1052 - Calculus and Linear Algebra I, 
+                        PHYS2041 - Quantum Mechanics I, MATH1051 - , PHYS1001 - </p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Growth Consultant</h3>
+                    <p class="description">Part of a team of student consultants in post-covid tourism growth for Practera Consulting.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Ventures Discovery Facilitator</h3>
+                    <p class="description">Facilitator for workshops for high school students focusing on 
+                        entrepreneurship, innovation, design thinking and problem solving.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Intern Software Engineer</h3>
+                     <p class="description">Worked with Linqia, based in San Francisco, on two software projects. Firstly I created a trend analysis tool
+                        to find and identify statistically significant trends from 12 months of web scraped instagram data (>2 Billion data points). And 
+                        secondly I created a twinfluencer product MVP allowing a user to swipe left or right on an influencer based on client desires
+                        and future suggestions are learnt based on past decisions.  
+                    </p>
                 </li>
                 <!-- Add more job items as needed -->
             </ul>
 
-        <section id = "Leadership & Entrepreneurship">  
+        <section id = "Leadership & Entrepreneurship" class="animated-slide-in">  
             <h2>Leadership & Entrepreneurship</h2>
             <ul>
-                <li>
-                    <h3>Job Title 1</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 1.</p>
+                 <li class="hidden-description">
+                    <h3>2nd Place at Weekend of Startups 2021</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
-                <li>
-                    <h3>Job Title 2</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 2.</p>
+                 <li class="hidden-description">
+                    <h3>Best Pitch at Weekend of Startups 2022</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>2nd Place at Liveris Academy innovation project pitch night</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Science Leader</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>                
+                 <li class="hidden-description">
+                    <h3>Academic Prefect</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
             </ul>
@@ -78,39 +157,67 @@
         <section id = "Volunteering">
             <h2>Volunteering</h2>
             <ul>
-                <li>
+                 <li class="hidden-description">
                     <h3>Junior Physics Odyssey</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 1.</p>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
-                <li>
+                 <li class="hidden-description">
                     <h3>Young Achievers Mentor</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 2.</p>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Vice Chancellor Scholar Enrichment Program Organiser</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Student Society Executive positions</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
             </ul>
         <section id = "Education">
-            <h2>Volunteering</h2>
+            <h2>Education</h2>
             <ul>
-                <li>
+                 <li class="hidden-description">
                     <h3>Job Title 1</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 1.</p>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
-                <li>
+                 <li class="hidden-description">
                     <h3>Job Title 2</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 2.</p>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
             </ul>
         <section id = "Awards">
-            <h2>Volunteering</h2>
+            <h2>Awards</h2>
             <ul>
-                <li>
-                    <h3>Job Title 1</h3>
-                    <p>Description of job responsibilities and achievements for Job Title 1.</p>
+                 <li class="hidden-description">
+                    <h3>UQ Employability Award</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 1.</p>
                 </li>
-                <li>
-                    <h3></h3>
-                    <p>Description of job responsibilities and achievements for Job Title 2.</p>
+                 <li class="hidden-description">
+                    <h3>Top Student in PHYS2055, 2nd in PHYS2020</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Deans Commendation For Academic Excellence</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Vice Chancellor Scholar</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Liveris Academy Undergraduate Scholar</h3>
+                     <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>QCAA Distinguished Academic Achiever</h3>
+                    <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
+                </li>
+                 <li class="hidden-description">
+                    <h3>Liveris Academy Undergraduate Scholar</h3>
+                    <p class="description">Description of job responsibilities and achievements for Job Title 2.</p>
                 </li>
                 <!-- Add more job items as needed -->
             </ul>   
@@ -118,18 +225,20 @@
             <h2>Languages</h2>
             <ul class="language-list">
                 <li>
-                    <h3>English</h3>
+                    <h3>English (Native)</h3>
                     <div class="progress-bar" style="--progress: 100%;"></div>
                 </li>
                 <li>
-                    <h3>Hindi</h3>
+                    <h3>Hindi (Native Spoken and Listened)</h3>
                     <div class="progress-bar" style="--progress: 60%;"></div>
                 </li>
                 <li>
-                    <h3>Norwegian</h3>
+                    <h3>Norwegian (A2-B1 Level)</h3>
                     <div class="progress-bar" style="--progress: 40%;"></div>
                 </li>
             </ul>
+        <section id="Hobbies">
+            <h2>Hobbies</h2>
             
         <!-- Add other sections -->
     </main>
@@ -138,20 +247,73 @@
         <p>Phone: +61 432 861 001</p>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated-slide-in'); // Adding the correct class to animate
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated-slide-in')) {
+                    entry.target.classList.add('animated-slide-in'); // Adding the correct class to animate
+                }
+            });
+        }, { threshold: 0 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const descriptions = document.querySelectorAll('.description');
+        
+    //     document.addEventListener('mousemove', function(event) {
+    //         const mouseX = event.clientX;
+    //         const mouseY = event.clientY;
+    //         const windowWidth = window.innerWidth;
+    //         const showDescription = mouseX <= windowWidth / 4;
+
+    //         descriptions.forEach(description => {
+    //             const h3Rect = description.previousElementSibling.getBoundingClientRect();
+    //             const h3Left = h3Rect.left;
+    //             const h3Right = h3Rect.right;
+    //             const h3Top = h3Rect.top;
+    //             const h3Bottom = h3Rect.bottom;
+
+    //             const isCursorOverH3 = mouseX >= h3Left && mouseX <= h3Right && mouseY >= h3Top && mouseY <= h3Bottom;
+
+    //             if (showDescription && isCursorOverH3) {
+    //                 description.classList.add('visible');
+    //             } else if (!description.classList.contains('clicked')) {
+    //                 description.classList.remove('visible');
+    //             }
+    //         });
+    //     });
+
+    //     document.querySelectorAll('h3').forEach(h3 => {
+    //         h3.addEventListener('click', function() {
+    //             const description = this.nextElementSibling;
+    //             description.classList.toggle('clicked');
+    //         });
+    //     });
+    // });
+
+    document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('h3').forEach(h3 => {
+                h3.addEventListener('click', function() {
+                    const description = this.nextElementSibling;
+                    description.classList.toggle('visible');
+                    if (description.classList.contains('visible')) {
+                        description.style.maxHeight = description.scrollHeight + "px";
+                        this.parentElement.classList.remove('hidden-description');
+                    } else {
+                        description.style.maxHeight = 0;
+                        this.parentElement.classList.add('hidden-description');
                     }
                 });
-            }, { threshold: 0.5 });
-    
-            sections.forEach(section => {
-                observer.observe(section);
             });
         });
     </script>
+</script>
+
 </body>
 </html>
