@@ -43,37 +43,42 @@
             margin-bottom: -30px; /* Reduce margin when description is hidden */
         }
 
+        .container {
+            margin: 0 20px; /* Adjust margins as needed */
+        }
         
     </style>
 </head>
 <body>
-    <header>
-        <img src="rytte.jpg" alt="Rishi Goel's headshot" style="width: 80%;">
-        <h1>Who's This Rishi Guy?</h1>
-        <nav>
-            <ul>
-                <li><a href="#about me">About Me</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#Work Experience">Work Experience</a></li>
-                <li><a href="#Leadership & Entrepreneurship">Leadership & Entrepreneurship</a></li>
-                <li><a href="#Volunteering">Volunteering</a></li>
-                <li><a href="#Education">Education</a></li>
-                <li><a href="#Awards">Awards</a></li>
-                <li><a href="#Languages">Languages</a></li>
-                <li><a href="#Hobbies">Hobbies</a></li>
-
-                <!-- Add other navigation links -->
-            </ul>
-        </nav>
-        <p>
-            <a href="mailto:rishigoel25@gmail.com" style="text-decoration: none; font-size: 48px;" >✉️</a>
-            <a href="tel:+61432861001" style="text-decoration: none; font-size: 43px;">📞</a>
-            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style = "width:5%; margin-right: 10px;"></a>
-            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram"style = "width:3%; margin-right: 10px;"></a>
-            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="Linkedin_logo.png" alt="Linkedin" style = "width:3%; margin-right: 10px;"></a>
-        </p>
+    <header style="background-image: url('rytte.jpg'); background-size: cover; background-position: center; height: 100vh; color: white; text-align: center; position: relative; overflow-x: hidden;">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+            <h1 style="font-size: 3em;">Who's This Rishi Guy?</h1>
+            <!-- <nav>
+                <ul>
+                    <li><a href="#about me">About Me</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#Work Experience">Work Experience</a></li>
+                    <li><a href="#Leadership & Entrepreneurship">Leadership & Entrepreneurship</a></li>
+                    <li><a href="#Volunteering">Volunteering</a></li>
+                    <li><a href="#Education">Education</a></li>
+                    <li><a href="#Awards">Awards</a></li>
+                    <li><a href="#Languages">Languages</a></li>
+                    <li><a href="Hobbies.html">Hobbies</a></li>
+                </ul>
+            </nav> -->
+        </div>
+        <div style="position: absolute; top: 10px; right: 10px;">
+            <a href="mailto:rishigoel25@gmail.com" style="text-decoration: none; font-size: 48px; margin-right: 10px;">✉️</a>
+            <a href="tel:+61432861001" style="text-decoration: none; font-size: 43px; margin-right: 10px;">📞</a>
+            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style="width: 30px; margin-right: 10px;"></a>
+            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram" style="width: 30px; margin-right: 10px;"></a>
+            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="Linkedin_logo.png" alt="Linkedin" style="width: 30px; margin-right: 10px;"></a>
+        </div>
     </header>
-    <main>
+    
+
+    
+    <main class = "container">
         <section id="about me" class="animated-slide-in">
             
             <h2>About Me</h2>
@@ -237,10 +242,7 @@
                     <div class="progress-bar" style="--progress: 40%;"></div>
                 </li>
             </ul>
-        <section id="Hobbies">
-            <h2>Hobbies</h2>
-            
-        <!-- Add other sections -->
+        
     </main>
     <footer>
         <p>Email: rishigoel25@gmail.com</p>
@@ -262,40 +264,6 @@
         });
     });
 
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const descriptions = document.querySelectorAll('.description');
-        
-    //     document.addEventListener('mousemove', function(event) {
-    //         const mouseX = event.clientX;
-    //         const mouseY = event.clientY;
-    //         const windowWidth = window.innerWidth;
-    //         const showDescription = mouseX <= windowWidth / 4;
-
-    //         descriptions.forEach(description => {
-    //             const h3Rect = description.previousElementSibling.getBoundingClientRect();
-    //             const h3Left = h3Rect.left;
-    //             const h3Right = h3Rect.right;
-    //             const h3Top = h3Rect.top;
-    //             const h3Bottom = h3Rect.bottom;
-
-    //             const isCursorOverH3 = mouseX >= h3Left && mouseX <= h3Right && mouseY >= h3Top && mouseY <= h3Bottom;
-
-    //             if (showDescription && isCursorOverH3) {
-    //                 description.classList.add('visible');
-    //             } else if (!description.classList.contains('clicked')) {
-    //                 description.classList.remove('visible');
-    //             }
-    //         });
-    //     });
-
-    //     document.querySelectorAll('h3').forEach(h3 => {
-    //         h3.addEventListener('click', function() {
-    //             const description = this.nextElementSibling;
-    //             description.classList.toggle('clicked');
-    //         });
-    //     });
-    // });
 
     document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('h3').forEach(h3 => {

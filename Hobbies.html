@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies</title>
+    <link rel="stylesheet" href="styles.css">
+    <style> 
+
+        .animated {
+            animation: slideIn 1s ease-out;
+        } 
+
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-30%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        
+        .animated-slide-in {
+            animation: slideInFromLeft 1s ease-out;
+        }
+
+        .description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .description.visible {
+            max-height: 0; /* Adjust as needed */
+        }
+
+        li {
+            margin-bottom: 10px; /* Add margin between list items */
+            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
+        }
+
+        li.hidden-description {
+            margin-bottom: -30px; /* Reduce margin when description is hidden */
+        }
+
+        
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>My Hobbies</h1>
+    </header>
+
+    <main>
+        <!-- Your content about hobbies goes here -->
+    </main>
+
+    <footer>
+        <!-- Footer content if needed -->
+    </footer>
+</body>
+</html>
