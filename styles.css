@@ -96,3 +96,33 @@ footer {
 h3, a {
     cursor: pointer;
 }
+
+
+#email-link {
+    color: inherit; /* Inherit color from parent */
+    text-decoration: none; /* Remove underline */
+}
+
+
+
+
+
+/* Style the scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(250, 240, 228); /* color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; /* color of the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* color of the handle on hover */
+}

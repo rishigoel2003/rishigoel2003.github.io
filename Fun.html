@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies</title>
+    <link rel="stylesheet" href="styles.css">
+    <style> 
+
+        .animated {
+            animation: slideIn 1s ease-out;
+        } 
+
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-30%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+
+        
+        .animated-slide-in {
+            animation: slideInFromLeft 1s ease-out;
+        }
+
+        .description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .description.visible {
+            max-height: 0; /* Adjust as needed */
+        }
+
+        li {
+            margin-bottom: 10px; /* Add margin between list items */
+            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
+        }
+
+        li.hidden-description {
+            margin-bottom: -30px; /* Reduce margin when description is hidden */
+        }
+
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .fun-stuff {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            animation: slideIn 1s ease forwards; /* Apply the animation */
+        }
+
+        .fun-stuff h1 {
+            font-size: 3em;
+        }
+
+        @keyframes slideInFromLeft2 {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .photo-container {
+            display: flex;
+            overflow: hidden; /* Ensure photos outside container are hidden */
+            animation: slideInFromLeft2 1s ease forwards; /* Apply the animation */
+        }
+
+        .photo {
+            margin: 0 10px; /* Add spacing between photos */
+        }
+        
+        main {
+            padding-top: 200px; /* Adjust the value as needed */
+        }
+    </style>
+
+</head>
+<body>
+    <header id="main-header">
+        <div id="corner-image-container" style="position: fixed; top: -4px; left: -1015px; z-index: 9999;">
+            <a id = "back-to-index" href="index.html">
+                <img id="corner-image" src="rytte.jpg" alt="Rytte" style="width: 17.3%; height: auto;">
+            </a>
+        </div>
+        <div class = "fun-stuff" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+            <h1 style="font-size: 3em;">The Fun Stuff!</h1>
+        </div>
+        
+    </header>
+    
+
+    <main>
+        <div class="photo-container" style="justify-content: center;">
+            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 1">
+            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 2">
+            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 3">
+            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 4">
+
+        </div>
+    </main>
+
+    <footer>
+        <!-- Footer content if needed -->
+    </footer>
+
+    <script>
+        document.getElementById('back-to-index').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of the link
+            
+            var cornerImage = document.getElementById('corner-image');
+            var cornerImageContainer = document.getElementById('corner-image-container');
+
+            cornerImage.style.transition = 'all 0.5s ease';
+            cornerImageContainer.style.transition = 'left 0.8s ease, top 0.7s ease'; // Apply transition to the container
+            cornerImage.style.transform = 'scale(5.7)';
+            cornerImageContainer.style.top = '325px';
+            cornerImageContainer.style.left = '0px';
+            
+            setTimeout(function() {
+            window.location.href = 'index.html';
+            }, 700); 
+        });
+    </script>
+</body>
+</html>
