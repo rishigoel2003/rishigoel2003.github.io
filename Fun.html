@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hobbies</title>
+    <title>Rishi Goel</title>
     <link rel="stylesheet" href="styles.css">
     <style> 
 
@@ -20,10 +20,22 @@
             }
         }
 
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(30%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
 
         
         .animated-slide-in {
             animation: slideInFromLeft 1s ease-out;
+        }
+
+        .animated-slide-in-right {
+            animation: slideInFromRight 1s ease-out;
         }
 
         .description {
@@ -92,14 +104,27 @@
         main {
             padding-top: 200px; /* Adjust the value as needed */
         }
+
+        ::-webkit-scrollbar {
+            width: 10px; /* width of the scrollbar */
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* color of the track */
+        }
+
+
+
     </style>
 
 </head>
 <body>
     <header id="main-header">
-        <div id="corner-image-container" style="position: fixed; top: -4px; left: -1015px; z-index: 9999;">
+        <div id="corner-image-container" style="position: absolute; top: -4px; left: -1015px; z-index: 9998;">
             <a id = "back-to-index" href="index.html">
                 <img id="corner-image" src="rytte.jpg" alt="Rytte" style="width: 17.3%; height: auto;">
+                <h3 style="margin-top: -30px; font: 1em sans-serif; text-decoration: none;">The Academic Stuff</h3>
             </a>
         </div>
         <div class = "fun-stuff" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
@@ -115,15 +140,67 @@
             <img class="photo" src="rishi-goel (2).jpg" alt="Photo 2">
             <img class="photo" src="rishi-goel (2).jpg" alt="Photo 3">
             <img class="photo" src="rishi-goel (2).jpg" alt="Photo 4">
-
         </div>
+
+        <div><h1 style="margin-bottom: 300px;"></h1></div>
+
+
+        <section id="adventures" class="slide-right">
+        <div class="image-container">
+            <img src="rishi-goel (2).jpg" alt="Image 1" style="margin-left: 100px; ">
+            <div class="text">
+              <h2>Norway</h2>
+              <p>Some descriptive text about the first image.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="container">
+            <div class="slider-wrapper">
+                <div class="slider">
+                    <img id="slide-1" src="" alt="3D rendering of an imaginary orange planet in space" />
+                    <img id="slide-2" src="" alt="3D rendering of an imaginary green planet in space" />
+                    <img id="slide-3" src="" alt="3D rendering of an imaginary blue planet in space" />
+                </div>
+                <div class="slider-nav">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                </div>
+            </div>
+        </section>
+        
+
     </main>
 
     <footer>
-        <!-- Footer content if needed -->
+        <p>Email: rishigoel25@gmail.com</p>
+        <p>Phone: +61 432 861 001</p>
     </footer>
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                    if (!entry.target.classList.contains('animated-slide-in')&& !entry.target.classList.contains('slide-right')) {
+                        entry.target.classList.add('animated-slide-in'); // Adding the default class for animation
+                    }
+                    if (!entry.target.classList.contains('animated-slide-in-right') && entry.target.classList.contains('slide-right')) {
+                        entry.target.classList.add('animated-slide-in-right'); // Adding slide-in-from-right class if the section has slide-right class
+                    }
+            }
+                });
+            }, { threshold: 0 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+
         document.getElementById('back-to-index').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent the default behavior of the link
             
@@ -142,4 +219,6 @@
         });
     </script>
 </body>
+
+
 </html>
