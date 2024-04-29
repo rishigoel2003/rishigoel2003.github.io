@@ -173,7 +173,7 @@ flex: 1; /* This will make the text fill the remaining space */
 
 .slider img {
 	flex: 1 0 100%;
-	scroll-snap-align: start;
+	scroll-snap-align:start ;
 	object-fit: cover;
 }
 

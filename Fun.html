@@ -115,6 +115,9 @@
         }
 
 
+        .text {
+    width: 500px; /* Adjust the width according to your preference */
+}
 
     </style>
 
@@ -127,8 +130,23 @@
                 <h3 style="margin-top: -30px; font: 1em sans-serif; text-decoration: none;">The Academic Stuff</h3>
             </a>
         </div>
-        <div class = "fun-stuff" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-            <h1 style="font-size: 3em;">The Fun Stuff!</h1>
+        <div class="fun-stuff" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+            <h1 style="font-size: 3em; position: relative;">
+                The Fun Stuff! 
+                
+            </h1>
+        </div>
+        
+        
+        <div style="position: absolute; top: 10px; right: 10px;"> 
+            <a href="#" id="email-link" onclick="copyEmail()" style=" text-decoration: none; color: inherit;">
+                <img src="email.jpg" alt="Email" style="width: 30px; margin-right: 10px; margin-bottom: 4px;" title="">
+                <span id="copy-email-text" style="color: black;"></span>
+            </a>
+                        <!-- <a href="tel:+61432861001"><img src="phone.jpg" alt="Facebook" style="width: 30px; margin-right: 10px;"></a> -->
+            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style="width: 30px; margin-right: 10px;"></a>
+            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram" style="width: 30px; margin-right: 10px;"></a>
+            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="LinkedIn_logo.png" alt="Linkedin" style="width: 30px; margin-right: 10px;"></a>
         </div>
         
     </header>
@@ -136,39 +154,102 @@
 
     <main>
         <div class="photo-container" style="justify-content: center;">
-            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 1">
-            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 2">
-            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 3">
-            <img class="photo" src="rishi-goel (2).jpg" alt="Photo 4">
+            <img class="photo" src="Rishi1.jpg" alt="Photo 1" style="width: 20%;">  
+            <img class="photo" src="Rishi2.jpg" alt="Photo 2" style="width: 20%;">
+            <img class="photo" src="Rishi3.jpg" alt="Photo 3" style="width: 20%;">
+            <img class="photo" src="Rishi4.jpg" alt="Photo 4" style="width: 20%;">
+            <img class="photo" src="Rishi5.jpg" alt="Photo 5" style="width: 20%;">
         </div>
 
-        <div><h1 style="margin-bottom: 300px;"></h1></div>
+        <div><h1 style="margin-bottom: 100px; margin-top:100px; text-align: center; font-size: 36px;">Adventures</h1></div>
+
+
 
 
         <section id="adventures" class="slide-right">
-        <div class="image-container">
-            <img src="rishi-goel (2).jpg" alt="Image 1" style="margin-left: 100px; ">
-            <div class="text">
-              <h2>Norway</h2>
-              <p>Some descriptive text about the first image.</p>
+
+        <div class="image-container" style="justify-content: center;">
+            <img src="Norway_start.jpg" alt="Image 1" style="margin-left: 100px; width: 70%; ">
+            <div class="text" style="width: 20px;">
+              <h2>Norwegian Exchange (2023)</h2>
+              <p>My 7 month expedition to the Norwegian coast side allowed to grow, understand myself and fine tune my values while broadening my worldview and intercultural skills. Experiencing a life so different from my own has developed my communication, independence and creativity in a way no other experience has. </p>
+                
+                <p>Also it was ridiculously fun! Going hiking, snowboarding and exploring was an adventure that was like no other. Highlights include hiking through the Lofoten islands, polar swims in the freezing fjords, paragliding around Bergen, hiking a marathon in a day, seeing the northern lights and of course, the uncountable number of friends I made along the way.</p>
+                
+                    <p>View some photos below!
+              </p>
             </div>
           </div>
+
+
+          <div><h1 style="margin-bottom: 30px;"></h1></div>
+
+          <div class="slider-wrapper">
+            <div class="slider">
+                <img id="slide-1" src="Norway1.jpg" alt="" />
+                <img id="slide-2" src="Norway2.jpg" alt="" />
+                <img id="slide-3" src="Norway3.jpg" alt="" />
+                <img id="slide-4" src="Norway4.jpg" alt="" />
+                <img id="slide-5" src="Norway5.png" alt="" />
+                <img id="slide-6" src="Norway6.png" alt="" />
+            </div>
+            <div class="slider-nav">
+                <a href="#slide-1"></a>
+                <a href="#slide-2"></a>
+                <a href="#slide-3"></a>
+                <a href="#slide-4"></a>
+                <a href="#slide-5"></a>
+                <a href="#slide-6"></a>
+            </div>
+        </div>
+
+        <div><h1 style="margin-bottom: 30px;"></h1></div>
+
+
+        <div class="image-container" style="justify-content: center;">
+            <img src="SF_start.jpg" alt="Image 1" style="margin-left: 100px; width: 70%; ">
+            <div class="text" style="width: 20px;">
+              <h2>San Francisco Startup Adventure (2024)</h2>
+              <p>
+              </p>
+            </div>
+          </div>
+
+
+          <div><h1 style="margin-bottom: 30px;"></h1></div>
+
+          <div class="slider-wrapper">
+            <div class="slider">
+                <img id="slide-7" src="SF.jpg" alt="" />
+                <img id="slide-8" src="SF.jpg" alt="" />
+                <img id="slide-9" src="SF.jpg" alt="" />
+                <img id="slide-10" src="SF.jpg" alt="" />
+                <img id="slide-11" src="SF.jpg" alt="" />
+                <img id="slide-12" src="SF.jpg" alt="" />
+            </div>
+            <div class="slider-nav">
+                <a href="#slide-7"></a>
+                <a href="#slide-8"></a>
+                <a href="#slide-9"></a>
+                <a href="#slide-10"></a>
+                <a href="#slide-11"></a>
+                <a href="#slide-12"></a>
+            </div>
+        </div>
         </section>
 
-        <section class="container">
-            <div class="slider-wrapper">
-                <div class="slider">
-                    <img id="slide-1" src="" alt="3D rendering of an imaginary orange planet in space" />
-                    <img id="slide-2" src="" alt="3D rendering of an imaginary green planet in space" />
-                    <img id="slide-3" src="" alt="3D rendering of an imaginary blue planet in space" />
-                </div>
-                <div class="slider-nav">
-                    <a href="#slide-1"></a>
-                    <a href="#slide-2"></a>
-                    <a href="#slide-3"></a>
-                </div>
-            </div>
+        <div><h1 style="margin-bottom: 100px; margin-top:100px; text-align: center; font-size: 36px;">Hobbies</h1></div>
+
+
+
+
+        <section id="hobbies" class="slide-right">
+
+
+
+        
         </section>
+
         
 
     </main>
