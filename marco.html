@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Murder of Marco Bellini</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Playfair+Display:wght@400;700;900&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #1a1a1a;
+      --accent-red: #8b0000;
+      --accent-red-light: #cc0000;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d0d0d0;
+      --text-muted: #888;
+      --border-color: #333;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      --shadow-intense: 0 8px 40px rgba(139, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--primary-bg) 0%, #1a0a0a 100%);
+      color: var(--text-primary);
+      font-family: 'Crimson Text', serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Atmospheric background effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      margin: 0;
+      text-shadow: 2px 2px 8px rgba(139, 0, 0, 0.5);
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+    }
+
+    .intro, .form-section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: none;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro {
+      font-size: 1.3em;
+      line-height: 1.8em;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(139, 0, 0, 0.1) 100%);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: var(--shadow-intense);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .form-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(139, 0, 0, 0.05) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 50px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(15px);
+      position: relative;
+    }
+
+    .question-block {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(139, 0, 0, 0.2);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .question-block:hover {
+      border-color: rgba(139, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: 600;
+      font-size: 1.2em;
+      color: var(--text-primary);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--secondary-bg);
+      color: var(--text-primary);
+      font-size: 1.1em;
+      font-family: 'Crimson Text', serif;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+      background: rgba(26, 26, 26, 0.8);
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(139, 0, 0, 0.4);
+      background: linear-gradient(135deg, #a00000 0%, #e00000 100%);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .clue {
+      margin-top: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-style: italic;
+      animation: slideIn 0.5s ease-out;
+      box-shadow: 0 2px 10px rgba(139, 0, 0, 0.2);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    #start-screen {
+      text-align: center;
+      margin-top: 15vh;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #start-screen button {
+      font-size: 1.5em;
+      padding: 20px 40px;
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      border-radius: 12px;
+      box-shadow: var(--shadow-intense);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      margin: 80px 0 30px;
+      font-size: 0.9em;
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    #notebook {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 340px;
+      background: linear-gradient(135deg, var(--secondary-bg) 0%, rgba(26, 26, 26, 0.95) 100%);
+      border-left: 3px solid var(--accent-red);
+      padding: 20px;
+      font-family: 'Source Code Pro', monospace;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+
+    #notebook.open {
+      right: 0;
+    }
+
+    #notebook h2 {
+      font-size: 1.3em;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--accent-red);
+      margin-top: 0;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #notebookText {
+      width: 100%;
+      height: 85%;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 15px;
+      resize: none;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9em;
+      line-height: 1.6;
+    }
+
+    #notebookText:focus {
+      outline: none;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+    }
+
+    #toggleNotebook {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      z-index: 1000;
+      cursor: pointer;
+      font-size: 0.9em;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    #toggleNotebook:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .intro, .form-section {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      #notebook {
+        width: 100%;
+        right: -100%;
+      }
+
+      #toggleNotebook {
+        top: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 0.8em;
+      }
+    }
+
+    /* Loading animation for questions */
+    .question-loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Success animation */
+    .success-flash {
+      animation: successFlash 0.6s ease-out;
+    }
+
+    @keyframes successFlash {
+      0% { background-color: rgba(0, 255, 0, 0.1); }
+      100% { background-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔊 Background Music -->
+  <audio autoplay loop>
+    <source src="background-mystery.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 🔝 Page Title Always Visible -->
+  <header>
+    <h1>The Murder of Marco Bellini</h1>
+  </header>
+
+  <!-- 🌟 Start Screen -->
+  <div id="start-screen">
+    <button onclick="startGame()">Enter Trattoria Luce</button>
+  </div>
+
+  <!-- 🧩 Intro + Form Section -->
+  <div id="intro" class="intro">
+    <p>
+      Marco Bellini was found dead at the head of a long dining table, slumped over a plate of his famous basmati rice risotto. 
+      Autopsy confirmed cause of death as acute poisoning—substance yet to be identified. His final menu, scrawled with ink, contains strange symbols and underlined phrases. 
+      His assistant claimed he had grown increasingly paranoid in the weeks prior, insisting on cooking alone and keeping a diary locked in the wine cellar.
+    </p>
+  </div>
+
+  <div class="form-section">
+
+    <!-- Question 1 -->
+    <div id="q1-block" class="question-block">
+      <label for="q1">When was Marco murdered?</label>
+      <input type="text" id="q1" placeholder="Enter the time of death...">
+      <button onclick="checkAnswer('q1', '8:45 pm', 'clue1', 'q2-block')">Investigate</button>
+      <div id="clue1" class="clue" style="display: none;">
+        <strong>Evidence Found:</strong> The poison was most effective around that time — likely added just before the main course was served.
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="q2-block" class="question-block" style="display: none;">
+      <label for="q2">How was he murdered?</label>
+      <input type="text" id="q2" placeholder="Determine the method...">
+      <button onclick="checkAnswer('q2', 'poison', 'clue2', 'q3-block')">Analyze</button>
+      <div id="clue2" class="clue" style="display: none;">
+        <strong>Lab Results:</strong> Traces of a rare alkaloid were found in the risotto — a chef's weapon, no doubt.
+      </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="q3-block" class="question-block" style="display: none;">
+      <label for="q3">Who do you suspect?</label>
+      <input type="text" id="q3" placeholder="Name your primary suspect...">
+      <button onclick="checkAnswer('q3', 'vincenzo', 'clue3', 'final-reveal')">Accuse</button>
+      <div id="clue3" class="clue" style="display: none;">
+        <strong>Breakthrough:</strong> Vincenzo had access to the kitchen spices. He also deleted the security footage... The case is building.
+      </div>
+    </div>
+
+    <!-- Final Reveal -->
+    <div id="final-reveal" class="question-block" style="display: none;">
+      <h2 style="color: var(--accent-red); text-align: center; margin-bottom: 20px;">Case Closed</h2>
+      <div class="clue" style="display: block; font-size: 1.1em; text-align: center;">
+        <strong>Congratulations, Detective!</strong><br>
+        You've successfully solved the murder of Marco Bellini. Vincenzo has been arrested and charged with first-degree murder. 
+        The rare alkaloid was traced back to a specialty spice supplier he had connections with. Justice has been served.
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Rishi Goel | The Kitchen Files
+  </footer>
+
+  <button id="toggleNotebook">📝 Notebook</button>
+
+  <div id="notebook">
+    <h2>Detective Notes</h2>
+    <textarea id="notebookText" placeholder="Record your observations, theories, and evidence here...
+
+Key Facts:
+- Victim: Marco Bellini, renowned chef
+- Location: Trattoria Luce
+- Cause: Acute poisoning
+- Time: Around 8:45 PM
+- Weapon: Rare alkaloid in risotto
+
+Suspects:
+- Vincenzo (assistant, had access, deleted footage)
+
+Evidence:
+- Poisoned risotto
+- Deleted security footage
+- Victim's paranoid behavior
+- Locked diary in wine cellar"></textarea>
+  </div>
+
+  <!-- 🧠 JS Logic -->
+  <script>
+    function startGame() {
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("intro").style.display = "block";
+      document.querySelector(".form-section").style.display = "block";
+    }
+
+    function checkAnswer(inputId, correctAnswer, clueId, nextId = null) {
+      const input = document.getElementById(inputId).value.trim().toLowerCase();
+      const expected = correctAnswer.toLowerCase();
+      const button = event.target;
+      const questionBlock = button.closest('.question-block');
+      
+      // Add loading state
+      button.textContent = 'Investigating...';
+      button.disabled = true;
+      questionBlock.classList.add('question-loading');
+      
+      setTimeout(() => {
+        if (input.includes(expected)) {
+          // Success
+          document.getElementById(clueId).style.display = 'block';
+          questionBlock.classList.add('success-flash');
+          questionBlock.classList.remove('question-loading');
+          button.textContent = 'Solved ✓';
+          button.style.background = 'linear-gradient(135deg, #006600, #008800)';
+          
+          if (nextId) {
+            setTimeout(() => {
+              document.getElementById(nextId).style.display = 'block';
+              document.getElementById(nextId).scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+            }, 800);
+          }
+        } else {
+          // Wrong answer
+          questionBlock.classList.remove('question-loading');
+          button.textContent = 'Try Again';
+          button.disabled = false;
+          
+          // Show error feedback
+          const input = document.getElementById(inputId);
+          input.style.borderColor = '#ff4444';
+          input.style.boxShadow = '0 0 15px rgba(255, 68, 68, 0.3)';
+          
+          setTimeout(() => {
+            input.style.borderColor = '';
+            input.style.boxShadow = '';
+          }, 2000);
+          
+          // Create temporary error message
+          const errorMsg = document.createElement('div');
+          errorMsg.textContent = "That doesn't seem right... examine the evidence more carefully.";
+          errorMsg.style.cssText = `
+            color: #ff6666;
+            font-style: italic;
+            margin-top: 10px;
+            animation: fadeInUp 0.3s ease-out;
+          `;
+          button.parentNode.appendChild(errorMsg);
+          
+          setTimeout(() => {
+            errorMsg.remove();
+          }, 3000);
+        }
+      }, 1200); // Simulate investigation time
+    }
+
+    // Notebook functionality
+    document.getElementById('toggleNotebook').addEventListener('click', () => {
+      const notebook = document.getElementById('notebook');
+      const button = document.getElementById('toggleNotebook');
+      
+      notebook.classList.toggle('open');
+      button.textContent = notebook.classList.contains('open') ? '✕ Close' : '📝 Notebook';
+    });
+
+    // Auto-save notebook content
+    const notebookText = document.getElementById('notebookText');
+    notebookText.addEventListener('input', () => {
+      localStorage.setItem('detectiveNotes', notebookText.value);
+    });
+
+    // Load saved notes
+    window.addEventListener('load', () => {
+      const savedNotes = localStorage.getItem('detectiveNotes');
+      if (savedNotes) {
+        notebookText.value = savedNotes;
+      }
+    });
+
+    // Add typing sound effect simulation
+    let typingSound = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (!typingSound) {
+          typingSound = true;
+          // Could add actual sound here
+          setTimeout(() => { typingSound = false; }, 100);
+        }
+      }
+    });
+
+    // Easter egg: Konami code for extra clue
+    let konamiCode = '';
+    const konamiSequence = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightKeyBKeyA';
+    
+    document.addEventListener('keydown', (e) => {
+      konamiCode += e.code;
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode = konamiCode.slice(-konamiSequence.length);
+      }
+      
+      if (konamiCode === konamiSequence) {
+        alert('🔍 Secret Evidence Found: Marco left a hidden message in the wine cellar - "V knows the truth"');
+        konamiCode = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
+
