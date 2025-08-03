@@ -1,401 +1,607 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishi Goel</title>
-    <link rel="stylesheet" href="styles.css">
-    <style> 
+  <meta charset="UTF-8" />
+  <title>The Murder of Marco Bellini</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Playfair+Display:wght@400;700;900&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #1a1a1a;
+      --accent-red: #8b0000;
+      --accent-red-light: #cc0000;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d0d0d0;
+      --text-muted: #888;
+      --border-color: #333;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      --shadow-intense: 0 8px 40px rgba(139, 0, 0, 0.3);
+    }
 
-        .animated {
-            animation: slideIn 1s ease-out;
-        } 
+    * {
+      box-sizing: border-box;
+    }
 
-        @keyframes slideInFromLeft {
-            0% {
-                transform: translateX(-30%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-        
-        .animated-slide-in {
-            animation: slideInFromLeft 1s ease-out;
-        }
+    body {
+      background: linear-gradient(135deg, var(--primary-bg) 0%, #1a0a0a 100%);
+      color: var(--text-primary);
+      font-family: 'Crimson Text', serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        .description {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
+    /* Atmospheric background effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        .description.visible {
-            max-height: 0; /* Adjust as needed */
-        }
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+      position: relative;
+    }
 
-        li {
-            margin-bottom: 10px; /* Add margin between list items */
-            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
-        }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      margin: 0;
+      text-shadow: 2px 2px 8px rgba(139, 0, 0, 0.5);
+      position: relative;
+    }
 
-        li.hidden-description {
-            margin-bottom: -30px; /* Reduce margin when description is hidden */
-        }
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+    }
 
-        .container {
-            margin: 0 20px; /* Adjust margins as needed */
-        }
+    .intro, .form-section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: none;
+      animation: fadeInUp 0.8s ease-out;
+    }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        
-    </style>
+    .intro {
+      font-size: 1.3em;
+      line-height: 1.8em;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(139, 0, 0, 0.1) 100%);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: var(--shadow-intense);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .form-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(139, 0, 0, 0.05) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 50px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(15px);
+      position: relative;
+    }
+
+    .question-block {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(139, 0, 0, 0.2);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .question-block:hover {
+      border-color: rgba(139, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: 600;
+      font-size: 1.2em;
+      color: var(--text-primary);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--secondary-bg);
+      color: var(--text-primary);
+      font-size: 1.1em;
+      font-family: 'Crimson Text', serif;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+      background: rgba(26, 26, 26, 0.8);
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(139, 0, 0, 0.4);
+      background: linear-gradient(135deg, #a00000 0%, #e00000 100%);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .clue {
+      margin-top: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-style: italic;
+      animation: slideIn 0.5s ease-out;
+      box-shadow: 0 2px 10px rgba(139, 0, 0, 0.2);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    #start-screen {
+      text-align: center;
+      margin-top: 15vh;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #start-screen button {
+      font-size: 1.5em;
+      padding: 20px 40px;
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      border-radius: 12px;
+      box-shadow: var(--shadow-intense);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      margin: 80px 0 30px;
+      font-size: 0.9em;
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    #notebook {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 340px;
+      background: linear-gradient(135deg, var(--secondary-bg) 0%, rgba(26, 26, 26, 0.95) 100%);
+      border-left: 3px solid var(--accent-red);
+      padding: 20px;
+      font-family: 'Source Code Pro', monospace;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+
+    #notebook.open {
+      right: 0;
+    }
+
+    #notebook h2 {
+      font-size: 1.3em;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--accent-red);
+      margin-top: 0;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #notebookText {
+      width: 100%;
+      height: 85%;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 15px;
+      resize: none;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9em;
+      line-height: 1.6;
+    }
+
+    #notebookText:focus {
+      outline: none;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+    }
+
+    #toggleNotebook {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      z-index: 1000;
+      cursor: pointer;
+      font-size: 0.9em;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    #toggleNotebook:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .intro, .form-section {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      #notebook {
+        width: 100%;
+        right: -100%;
+      }
+
+      #toggleNotebook {
+        top: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 0.8em;
+      }
+    }
+
+    /* Loading animation for questions */
+    .question-loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Success animation */
+    .success-flash {
+      animation: successFlash 0.6s ease-out;
+    }
+
+    @keyframes successFlash {
+      0% { background-color: rgba(0, 255, 0, 0.1); }
+      100% { background-color: transparent; }
+    }
+  </style>
 </head>
 <body>
-    <header id="main-header" style="background-image: url('rytte.jpg'); background-size: cover; background-position: center; height: 100vh; color: white; text-align: center; position: relative; overflow-x: hidden;">
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-            <h1 style="font-size: 3em;">Who's This Rishi Guy?</h1>
-        </div>
-        <div style = "position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%)">
-            <nav>            
-                <ul style="font-size: 40px; text-decoration: none;">
-                <!-- <li><a href="#about me">About Me</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#Work Experience">Work Experience</a></li>
-                <li><a href="#Leadership & Entrepreneurship">Leadership & Entrepreneurship</a></li>
-                <li><a href="#Volunteering">Volunteering</a></li>
-                <li><a href="#Education">Education</a></li>
-                <li><a href="#Awards">Awards</a></li>
-                <li><a href="#Languages">Languages</a></li> -->
-                <!-- <li><a href = "index.html">The Academic Stuff</li> -->
-                <li><a href="./Fun" id="hobbies-link">The Fun Stuff</a></li>
-                </ul>
-            </nav>
 
-        </div>
-        <div style="position: absolute; top: 10px; right: 10px;"> 
-            <a href="#" id="email-link" onclick="copyEmail()" style=" text-decoration: none; color: inherit;">
-                <img src="email.jpg" alt="Email" style="width: 30px; margin-right: 10px; margin-bottom: 4px;" title="">
-                <span id="copy-email-text" style="color: black;"></span>
-            </a>
-                        <!-- <a href="tel:+61432861001"><img src="phone.jpg" alt="Facebook" style="width: 30px; margin-right: 10px;"></a> -->
-            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="LinkedIn_logo.png" alt="Linkedin" style="width: 30px; margin-right: 10px;"></a>
-        </div>
-        <!-- <div style = "position: absolute; top: 10px; left: 10px; color: white;">
-            <a href="index.html"; style = "color: white; font-size: 2em; text-decoration: none;">Rishi Goel</a>
-        </div> -->
-    </header>
-    
-    <!-- <div id="moving-box">
-        <img src="rishi-goel (2).jpg" alt="me">
-    </div> -->
+  <!-- 🔊 Background Music -->
+  <audio autoplay loop>
+    <source src="background-mystery.mp3" type="audio/mpeg">
+  </audio>
 
-    
-    <main class = "container">
-        <section id="about me" class="animated-slide-in">
-            
-            <h2>About Me</h2>
-             <p>Highly motivated and enthusiastic physics student who wishes to ensure
-            mathematical algorithms are used for the betterment of human lives. As
-            passionate about research and innovation as for sustainability. Currently in
-            semester 1 of fourth year of university - recently returned from exchange at
-            University of Bergen. Holds a GPA of 6.9 and 2 academic and leadership
-            scholarships. Well versed in machine learning,
-            hierarchical time series forecasting and quantum machine learning kernel
-            methods.</p>
+  <!-- 🔝 Page Title Always Visible -->
+  <header>
+    <h1>The Murder of Marco Bellini</h1>
+  </header>
 
-        <section id = "publications">
-            <h2>Publications</h2>
-            <ul>
-            <li class = "hidden-description">
-                <h3><a href="https://arxiv.org/abs/2401.05647" target="_blank">Quantum Kernel Machine Learning With Continuous Variables</a></h3>
-                <p class = "description">The popular qubit framework has dominated recent work on quantum kernel machine learning, with results characterising expressivity, learnability and generalisation. As yet, there is no comparative framework to understand these concepts for continuous variable (CV) quantum computing platforms. In this paper we represent CV quantum kernels as closed form functions and use this representation to provide several important theoretical insights. We derive a general closed form solution for all CV quantum kernels and show every such kernel can be expressed as the product of Gaussian and algebraic function terms. Furthermore, we present quantification of a quantum-classical separation for all quantum kernels via a hierarchical notion of the ``stellar rank" of the quantum kernel feature map. For a particular subclass of CV kernels, we are able to directly extend this notion to the kernels themselves. In all such cases we can quantify the hardness of classical simulability of the quantum kernel. We then prove kernels defined by feature maps of infinite stellar rank, such as GKP-state encodings, can be approximated arbitrarily well by kernels defined by feature maps of finite stellar rank. Finally, we simulate learning with a single-mode displaced Fock state encoding and show that (i) accuracy on our specific task (an annular data set) increases with stellar rank, (ii) for underfit models, accuracy can be improved by increasing a bandwidth hyperparameter, and (iii) for noisy data that is overfit, decreasing the bandwidth will improve generalisation but does so at the cost of effective stellar rank and thus quantum advantage.
-                </p>
-            </li>
-            </ul>
-        <section id = "Work Experience">
-            <h2>Work Experience</h2>
-            <ul>
-                <li class="hidden-description">
-                    <h3>Intern Software Developer</h3>
-                    <p class="description">Created a novel fare-based journey planner for train networks around the UK to incorporate split ticketing and 
-                        balance of cost vs time. Found cheaper journeys in 64% of top trips vs current status quo algorithms.
-                    </p>
-                </li>
-                <li class="hidden-description">
-                    <h3>Intern Software Engineer</h3>
-                     <p class="description">Worked with Linqia, based in San Francisco, on two software projects. Firstly I created a trend analysis tool
-                        to find and identify statistically significant trends from 12 months of web scraped instagram data (>2 Billion data points). And 
-                        secondly I created a twinfluencer product MVP allowing a user to swipe left or right on an influencer based on client desires
-                        and future suggestions are learnt based on past decisions.  
-                    </p>
-                </li>
-                <li class="hidden-description">
-                    <h3>Winter Research Project Scholar</h3>
-                    <p class="description">Lead researcher working with Dr Mahdi Abolghasemi on novel research applying graph neural networks and 
-                        lightGBM ML models to hierarchical time series data.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Casual Academic UQ</h3>
-                    <p class="description">Tutor for SCIE1200 - Introduction to Science Research, MATH1052 - Calculus and Linear Algebra I, 
-                        PHYS2041 - Quantum Mechanics I, MATH1051 - , PHYS1001 - </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Growth Consultant</h3>
-                    <p class="description">Part of a team of student consultants in post-covid tourism growth for Practera Consulting.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Ventures Discovery Facilitator</h3>
-                    <p class="description">Facilitator for workshops for high school students focusing on 
-                        entrepreneurship, innovation, design thinking and problem solving.</p>
-                </li>
-                 
-                <!-- Add more job items as needed -->
-            </ul>
+  <!-- 🌟 Start Screen -->
+  <div id="start-screen">
+    <button onclick="startGame()">Enter Trattoria Luce</button>
+  </div>
 
-        <section id = "Leadership & Entrepreneurship" class="animated-slide-in">  
-            <h2>Leadership & Entrepreneurship</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>2nd Place at Weekend of Startups 2021</h3>
-                     <p class="description">Won a 2nd place finish at the 2021 Weekend of Startups pitching Mindy's World, a gamified drug and alcohol education scheme to help 
-                        prevent underage deaths from substance abuse. Recieved offers for > $3000 at Brisbane Schools.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Best Pitch at Weekend of Startups 2022</h3>
-                     <p class="description">Won Best Pitch at 2022 Weekend of Startups with Mable, an online marketplace-like platform for disabled mothers to share
-                        solutions to their everyday disruptions. Options for groups, communication and forums alongside a section for 2nd hand goods transfer was available. Recieved strong support from the 
-                        disabled community.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>2nd Place at Liveris Academy innovation project pitch night</h3>
-                     <p class="description">Awarded for the Gladstone innovation project where we pitched a platform connecting workers in Gladstone
-                        to upskilling programs in more sustainable areas. We found through numerous (20+) interviews with workers in Gladstone that non-existent work
-                        mobility was the greatest opposition to a sustainable energy transition.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Science Leader</h3>
-                     <p class="description">Volunteer leadership position where I have run orientation events and helped organise 
-                        supporting activities for new students in the science community. 
-                     </p>
-                </li>                
-                 <li class="hidden-description">
-                    <h3>Academic Prefect</h3>
-                     <p class="description">High school prefect as lead of the Academic Committee, creating 100s of resources for our cohort
-                        on an open database in collaboration with 7+ other Brisbane based schools. Ran maths and physics seminars for 250+ fellow year 12 students 
-                        explaining key concepts and running through past exam problems. 
-                     </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
+  <!-- 🧩 Intro + Form Section -->
+  <div id="intro" class="intro">
+    <p>
+      Marco Bellini was found dead at the head of a long dining table, slumped over a plate of his famous basmati rice risotto. 
+      Autopsy confirmed cause of death as acute poisoning—substance yet to be identified. His final menu, scrawled with ink, contains strange symbols and underlined phrases. 
+      His assistant claimed he had grown increasingly paranoid in the weeks prior, insisting on cooking alone and keeping a diary locked in the wine cellar.
+    </p>
+  </div>
 
-        <section id = "Volunteering">
-            <h2>Volunteering</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>Junior Physics Odyssey</h3>
-                     <p class="description">Lead student organiser for last 5 years in the year 10 extracurricular physics camp run by UQ. Camp involves running workshops, labs,
-                        managing 120+ students and engaging through fun activities.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Young Achievers Mentor</h3>
-                     <p class="description">Volunteering by facilitating week long camps with a group of 15 students experiencing financial 
-                        hardship during year 11-12 and engaging in monthly phone calls to reconnect and ensure they are on the right track. Acted as a
-                        long lasting and impactful mentor to a large number of students. 
-                    </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Vice Chancellor Scholar Enrichment Program Organiser</h3>
-                     <p class="description">Ran and ideated a large number of enrichment and social activities for the Vice Chancellor scholarship enrichment program. 
-                        As the student facing representative, I ran a dodgeball, badminton and various lunches to allow the scholars to meet and network with each other. 
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Student Society Executive positions</h3>
-                     <p class="description">Treasurer for Girl Up, First Year Officer for SASS, general executive for SOFA, PAIN and SASS. Each role tested my 
-                        people skills and allowed me to run events from barbeques, to paint and sips and many in between. 
-                     </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
-        <section id = "Education">
-            <h2>Education</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>Bachelor of Advanced Science (Honours)    The University of Queensland </h3>
-                     <ul class="description">
-                        <li><strong>Time Period:</strong> February 2021 - Present</li>
-                        <li><strong>Specialization:</strong> Physics</li>
-                        <li><strong>Awards:</strong>
-                            <ul>
-                                <li>Dean's Commendation for Academic Excellence:
-                                    <ul>
-                                        <li>2021 Semester 1 & 2</li>
-                                        <li>2022 Semester 1 & 2</li>
-                                        <li>2023 Semester 2</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><strong>GPA:</strong> 6.90/7.00</li>
-                        <li><strong>Mean Percentage:</strong> 94.29%</li>
-                    </ul>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Secondary Education</h3>
-                    <ul class="description">
-                        <li><strong>Graduated:</strong> November 2020</li>
-                        <li><strong>School:</strong> Brisbane Grammar School</li>
-                        <li><strong>Awards:</strong>
-                            <ul>
-                                <li>
-                                    General Merit (2016-2020)
-                                </li>
-                                <li>
-                                    Dux of Economics (2020)
-                                </li>
-                                <li>
-                                    Academic Prefect (2020)
-                                </li>
-                            </ul>
-                        </li>
-                        <li><strong>ATAR:</strong> 99.90 (top 37 in State)</li>
-                        <li><strong>Subjects:</strong> Maths Methods, Specialist Maths, English, Economics, Drama, Physics</li>
-                    </ul>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
-        <section id = "Awards">
-            <h2>Awards</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>UQ Employability Award</h3>
-                     <p class="description">Awarded to students demonstrating strong employability skills through ranges of volunteering, work experience and development activities</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Top Student in PHYS2055, 2nd in PHYS2020</h3>
-                     <p class="description">Awarded for having the highest percentage in Sem 1 2022 in these courses</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Deans Commendation For Academic Excellence</h3>
-                     <p class="description">Awarded for my semester GPA in Sem 1 & 2 2021, Sem 1 & 2 2022, and Sem 2 2023</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Vice Chancellor Scholar</h3>
-                     <p class="description">Awarded to top students who recive an ATAR of greater than 99.90 in high school</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Liveris Academy Undergraduate Scholar</h3>
-                     <p class="description">Awarded to 5 students each year based on academic excellence and pursuit of leadership and innovation</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>QCAA Distinguished Academic Achiever</h3>
-                    <p class="description">Awared to the top 37 students in the state of QLD for 2020 Graduates based on all subjects final unscaled scores.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>ADF Long Tan Youth Leadership and Teamwork Award</h3>
-                    <p class="description">Recognising students who demonstrate leadership and teamwork in their community. Awarded to me for my 
-                        consistent impact through the academic committee and as my prefect role. 
-                    </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>   
-        <section id="Languages">
-            <h2>Languages</h2>
-            <ul class="language-list">
-                <li>
-                    <h3>English (Native)</h3>
-                    <div class="progress-bar" style="--progress: 100%;"></div>
-                </li>
-                <li>
-                    <h3>Hindi (Native Spoken and Listened)</h3>
-                    <div class="progress-bar" style="--progress: 60%;"></div>
-                </li>
-                <li>
-                    <h3>Norwegian (A2-B1 Level)</h3>
-                    <div class="progress-bar" style="--progress: 40%;"></div>
-                </li>
-            </ul>
-        
-    </main>
+  <div class="form-section">
 
+    <!-- Question 1 -->
+    <div id="q1-block" class="question-block">
+      <label for="q1">When was Marco murdered?</label>
+      <input type="text" id="q1" placeholder="Enter the time of death...">
+      <button onclick="checkAnswer('q1', '8:45 pm', 'clue1', 'q2-block')">Investigate</button>
+      <div id="clue1" class="clue" style="display: none;">
+        <strong>Evidence Found:</strong> The poison was most effective around that time — likely added just before the main course was served.
+      </div>
+    </div>
 
+    <!-- Question 2 -->
+    <div id="q2-block" class="question-block" style="display: none;">
+      <label for="q2">How was he murdered?</label>
+      <input type="text" id="q2" placeholder="Determine the method...">
+      <button onclick="checkAnswer('q2', 'poison', 'clue2', 'q3-block')">Analyze</button>
+      <div id="clue2" class="clue" style="display: none;">
+        <strong>Lab Results:</strong> Traces of a rare alkaloid were found in the risotto — a chef's weapon, no doubt.
+      </div>
+    </div>
 
-    <footer>
-        <p>Email: rishigoel25@gmail.com</p>
-        <p>Phone: +61 432 861 001</p>
-    </footer>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('animated-slide-in')) {
-                    entry.target.classList.add('animated-slide-in'); // Adding the correct class to animate
-                }
-            });
-        }, { threshold: 0 });
+    <!-- Question 3 -->
+    <div id="q3-block" class="question-block" style="display: none;">
+      <label for="q3">Who do you suspect?</label>
+      <input type="text" id="q3" placeholder="Name your primary suspect...">
+      <button onclick="checkAnswer('q3', 'vincenzo', 'clue3', 'final-reveal')">Accuse</button>
+      <div id="clue3" class="clue" style="display: none;">
+        <strong>Breakthrough:</strong> Vincenzo had access to the kitchen spices. He also deleted the security footage... The case is building.
+      </div>
+    </div>
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    });
+    <!-- Final Reveal -->
+    <div id="final-reveal" class="question-block" style="display: none;">
+      <h2 style="color: var(--accent-red); text-align: center; margin-bottom: 20px;">Case Closed</h2>
+      <div class="clue" style="display: block; font-size: 1.1em; text-align: center;">
+        <strong>Congratulations, Detective!</strong><br>
+        You've successfully solved the murder of Marco Bellini. Vincenzo has been arrested and charged with first-degree murder. 
+        The rare alkaloid was traced back to a specialty spice supplier he had connections with. Justice has been served.
+      </div>
+    </div>
 
+  </div>
 
-    document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('h3').forEach(h3 => {
-                h3.addEventListener('click', function() {
-                    const description = this.nextElementSibling;
-                    description.classList.toggle('visible');
-                    if (description.classList.contains('visible')) {
-                        description.style.maxHeight = description.scrollHeight + "px";
-                        this.parentElement.classList.remove('hidden-description');
-                    } else {
-                        description.style.maxHeight = 0;
-                        this.parentElement.classList.add('hidden-description');
-                    }
-                });
-            });
-        });
+  <footer>
+    &copy; 2025 Rishi Goel | The Kitchen Files
+  </footer>
 
-    document.getElementById('hobbies-link').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default behavior of the link
-        
-        // Get the header element
-        var header = document.getElementById('main-header');
-        
-        // Change CSS properties to shrink and move the header
-        header.style.transition = 'transform 0.5s ease';
-        header.style.transform = 'scale(0.3)';
-        header.style.top = '-278px';
-        header.style.left = '-505px';
+  <button id="toggleNotebook">📝 Notebook</button>
 
-        setTimeout(function() {
-            // Redirect to hobbies.html
-            window.location.href = './Fun';
-        }, 500);
-    });
+  <div id="notebook">
+    <h2>Detective Notes</h2>
+    <textarea id="notebookText" placeholder="Record your observations, theories, and evidence here...
 
-    function copyEmail() {
-        var email = "rishigoel25@gmail.com"; // Your email address
-        navigator.clipboard.writeText(email)
-        .then(function() {
-                document.getElementById("copy-email-text").innerText = "Email Address Copied!";
-                setTimeout(function() {
-                    document.getElementById("copy-email-text").innerText = "";
-                }, 1000); // Reset text after 2 seconds
-            })
-            .catch(function() {
-                alert("Failed to copy email address.");
-            });
+Key Facts:
+- Victim: Marco Bellini, renowned chef
+- Location: Trattoria Luce
+- Cause: Acute poisoning
+- Time: Around 8:45 PM
+- Weapon: Rare alkaloid in risotto
+
+Suspects:
+- Vincenzo (assistant, had access, deleted footage)
+
+Evidence:
+- Poisoned risotto
+- Deleted security footage
+- Victim's paranoid behavior
+- Locked diary in wine cellar"></textarea>
+  </div>
+
+  <!-- 🧠 JS Logic -->
+  <script>
+    function startGame() {
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("intro").style.display = "block";
+      document.querySelector(".form-section").style.display = "block";
     }
-    </script>
+
+    function checkAnswer(inputId, correctAnswer, clueId, nextId = null) {
+      const input = document.getElementById(inputId).value.trim().toLowerCase();
+      const expected = correctAnswer.toLowerCase();
+      const button = event.target;
+      const questionBlock = button.closest('.question-block');
+      
+      // Add loading state
+      button.textContent = 'Investigating...';
+      button.disabled = true;
+      questionBlock.classList.add('question-loading');
+      
+      setTimeout(() => {
+        if (input.includes(expected)) {
+          // Success
+          document.getElementById(clueId).style.display = 'block';
+          questionBlock.classList.add('success-flash');
+          questionBlock.classList.remove('question-loading');
+          button.textContent = 'Solved ✓';
+          button.style.background = 'linear-gradient(135deg, #006600, #008800)';
+          
+          if (nextId) {
+            setTimeout(() => {
+              document.getElementById(nextId).style.display = 'block';
+              document.getElementById(nextId).scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+            }, 800);
+          }
+        } else {
+          // Wrong answer
+          questionBlock.classList.remove('question-loading');
+          button.textContent = 'Try Again';
+          button.disabled = false;
+          
+          // Show error feedback
+          const input = document.getElementById(inputId);
+          input.style.borderColor = '#ff4444';
+          input.style.boxShadow = '0 0 15px rgba(255, 68, 68, 0.3)';
+          
+          setTimeout(() => {
+            input.style.borderColor = '';
+            input.style.boxShadow = '';
+          }, 2000);
+          
+          // Create temporary error message
+          const errorMsg = document.createElement('div');
+          errorMsg.textContent = "That doesn't seem right... examine the evidence more carefully.";
+          errorMsg.style.cssText = `
+            color: #ff6666;
+            font-style: italic;
+            margin-top: 10px;
+            animation: fadeInUp 0.3s ease-out;
+          `;
+          button.parentNode.appendChild(errorMsg);
+          
+          setTimeout(() => {
+            errorMsg.remove();
+          }, 3000);
+        }
+      }, 1200); // Simulate investigation time
+    }
+
+    // Notebook functionality
+    document.getElementById('toggleNotebook').addEventListener('click', () => {
+      const notebook = document.getElementById('notebook');
+      const button = document.getElementById('toggleNotebook');
+      
+      notebook.classList.toggle('open');
+      button.textContent = notebook.classList.contains('open') ? '✕ Close' : '📝 Notebook';
+    });
+
+    // Auto-save notebook content
+    const notebookText = document.getElementById('notebookText');
+    notebookText.addEventListener('input', () => {
+      localStorage.setItem('detectiveNotes', notebookText.value);
+    });
+
+    // Load saved notes
+    window.addEventListener('load', () => {
+      const savedNotes = localStorage.getItem('detectiveNotes');
+      if (savedNotes) {
+        notebookText.value = savedNotes;
+      }
+    });
+
+    // Add typing sound effect simulation
+    let typingSound = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (!typingSound) {
+          typingSound = true;
+          // Could add actual sound here
+          setTimeout(() => { typingSound = false; }, 100);
+        }
+      }
+    });
+
+    // Easter egg: Konami code for extra clue
+    let konamiCode = '';
+    const konamiSequence = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightKeyBKeyA';
+    
+    document.addEventListener('keydown', (e) => {
+      konamiCode += e.code;
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode = konamiCode.slice(-konamiSequence.length);
+      }
+      
+      if (konamiCode === konamiSequence) {
+        alert('🔍 Secret Evidence Found: Marco left a hidden message in the wine cellar - "V knows the truth"');
+        konamiCode = '';
+      }
+    });
+  </script>
+
 </body>
 </html>
 
