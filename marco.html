@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Murder of Marco Bellini</title>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Playfair+Display:wght@400;700;900&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -10,6 +11,7 @@
       --secondary-bg: #1a1a1a;
       --accent-red: #8b0000;
       --accent-red-light: #cc0000;
+      --accent-gold: #d4af37;
       --text-primary: #f5f5f5;
       --text-secondary: #d0d0d0;
       --text-muted: #888;
@@ -33,7 +35,7 @@
       position: relative;
     }
 
-    /* Atmospheric background effect */
+    /* Enhanced atmospheric background */
     body::before {
       content: '';
       position: fixed;
@@ -43,9 +45,46 @@
       height: 100%;
       background: 
         radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 40%);
       pointer-events: none;
       z-index: -1;
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(139, 0, 0, 0.3);
+      animation: float 8s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     header {
@@ -63,6 +102,16 @@
       margin: 0;
       text-shadow: 2px 2px 8px rgba(139, 0, 0, 0.5);
       position: relative;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from {
+        text-shadow: 2px 2px 8px rgba(139, 0, 0, 0.5);
+      }
+      to {
+        text-shadow: 2px 2px 8px rgba(139, 0, 0, 0.8), 0 0 20px rgba(139, 0, 0, 0.3);
+      }
     }
 
     h1::after {
@@ -74,6 +123,16 @@
       width: 100px;
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+      animation: lineGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes lineGlow {
+      from {
+        box-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+      }
+      to {
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.8);
+      }
     }
 
     .intro, .form-section {
@@ -137,11 +196,29 @@
       border: 1px solid rgba(139, 0, 0, 0.2);
       border-radius: 10px;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .question-block:hover::before {
+      left: 100%;
     }
 
     .question-block:hover {
       border-color: rgba(139, 0, 0, 0.4);
-      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.15);
+      transform: translateY(-2px);
     }
 
     label {
@@ -171,6 +248,11 @@
       border-color: var(--accent-red);
       box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
       background: rgba(26, 26, 26, 0.8);
+    }
+
+    input[type="text"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     button {
@@ -205,7 +287,7 @@
       left: 100%;
     }
 
-    button:hover {
+    button:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(139, 0, 0, 0.4);
       background: linear-gradient(135deg, #a00000 0%, #e00000 100%);
@@ -213,6 +295,12 @@
 
     button:active {
       transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .clue {
@@ -266,11 +354,12 @@
       font-family: 'Source Code Pro', monospace;
     }
 
+    /* Enhanced Notebook */
     #notebook {
       position: fixed;
       top: 0;
-      right: -350px;
-      width: 340px;
+      right: -370px;
+      width: 360px;
       background: linear-gradient(135deg, var(--secondary-bg) 0%, rgba(26, 26, 26, 0.95) 100%);
       border-left: 3px solid var(--accent-red);
       padding: 20px;
@@ -299,7 +388,7 @@
 
     #notebookText {
       width: 100%;
-      height: 85%;
+      height: calc(100% - 100px);
       background: rgba(0, 0, 0, 0.3);
       color: var(--text-secondary);
       border: 1px solid var(--border-color);
@@ -319,8 +408,8 @@
 
     #toggleNotebook {
       position: fixed;
-      top: 30px;
-      right: 30px;
+      top: 10px;
+      right: 20px;
       background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
       color: white;
       padding: 12px 20px;
@@ -339,6 +428,106 @@
     #toggleNotebook:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+    }
+
+    /* Audio Controls */
+    .audio-controls {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    .audio-btn {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2em;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+    }
+
+    .audio-btn.muted {
+      background: linear-gradient(135deg, #666 0%, #888 100%);
+    }
+
+    /* Progress indicator */
+    .progress-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+      transition: width 0.3s ease;
+      z-index: 1001;
+    }
+
+    /* Hint system */
+    .hint-btn {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #f4d03f 100%);
+      color: #000;
+      padding: 8px 16px;
+      font-size: 0.9em;
+      margin-left: 10px;
+    }
+
+    .hint {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%);
+      border-left: 4px solid var(--accent-gold);
+      color: var(--accent-gold);
+      margin-top: 10px;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 0.95em;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    /* Loading states */
+    .question-loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .question-loading::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.1), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Success animation */
+    .success-flash {
+      animation: successFlash 0.6s ease-out;
+    }
+
+    @keyframes successFlash {
+      0% { background-color: rgba(0, 255, 0, 0.1); }
+      100% { background-color: transparent; }
     }
 
     /* Responsive Design */
@@ -363,80 +552,215 @@
         padding: 10px 15px;
         font-size: 0.8em;
       }
+
+      .audio-controls {
+        top: 20px;
+        left: 20px;
+        flex-direction: column;
+      }
+
+      .audio-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+      }
     }
 
-    /* Loading animation for questions */
-    .question-loading {
-      opacity: 0.5;
-      pointer-events: none;
+    /* Evidence gallery */
+    .evidence-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
     }
 
-    /* Success animation */
-    .success-flash {
-      animation: successFlash 0.6s ease-out;
+    .evidence-item {
+      background: rgba(139, 0, 0, 0.1);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      /* cursor: pointer; */
     }
 
-    @keyframes successFlash {
-      0% { background-color: rgba(0, 255, 0, 0.1); }
-      100% { background-color: transparent; }
+    .evidence-item:hover {
+      border-color: rgba(139, 0, 0, 0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+    }
+
+    .evidence-item h4 {
+      color: var(--accent-red);
+      margin: 0 0 10px 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .evidence-item p {
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Character profiles */
+    .character-profiles {
+      display: none;
+      margin: 30px 0;
+    }
+
+    .character {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    .character:hover {
+      border-color: rgba(139, 0, 0, 0.3);
+      transform: translateX(10px);
+    }
+
+    .character h4 {
+      color: var(--accent-red);
+      margin: 0 0 10px 0;
+      font-family: 'Playfair Display', serif;
     }
   </style>
 </head>
 <body>
 
-  <!-- 🔊 Background Music -->
-  <audio autoplay loop>
+  <!-- Progress indicator -->
+  <div class="progress-indicator" id="progressBar"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Audio Controls -->
+  <div class="audio-controls">
+    <button class="audio-btn" id="playPauseBtn" title="Play/Pause Music">🎵</button>
+    <button class="audio-btn" id="muteBtn" title="Mute/Unmute">🔊</button>
+  </div>
+
+  <!-- Audio element (will be controlled by JavaScript) -->
+  <audio id="backgroundMusic" loop>
     <source src="background-mystery.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- 🔝 Page Title Always Visible -->
+  <!-- Page Title -->
   <header>
     <h1>The Murder of Marco Bellini</h1>
   </header>
 
-  <!-- 🌟 Start Screen -->
+  <!-- Start Screen -->
   <div id="start-screen">
-    <button onclick="startGame()">Enter Trattoria Luce</button>
+    <button onclick="startGame()">🍽️ Enter Trattoria Luce</button>
   </div>
 
-  <!-- 🧩 Intro + Form Section -->
+  <!-- Intro Section -->
   <div id="intro" class="intro">
     <p>
-      Marco Bellini was found dead at the head of a long dining table, slumped over a plate of his famous basmati rice risotto. 
-      Autopsy confirmed cause of death as acute poisoning—substance yet to be identified. His final menu, scrawled with ink, contains strange symbols and underlined phrases. 
-      His assistant claimed he had grown increasingly paranoid in the weeks prior, insisting on cooking alone and keeping a diary locked in the wine cellar.
+      <strong>July 31st, between 10:00 p.m. and 11:00 p.m.</strong><br><br>
+      Marco Bellini was found dead at the head of a long dining table, slumped over a plate of his famous basmati rice risotto. Autopsy confirmed cause of death as acute poisoning—substance yet to be identified. His final menu, scrawled with ink, contains strange symbols and underlined phrases. His assistant claimed he had grown increasingly paranoid in the weeks prior, insisting on cooking alone and keeping a diary locked in the wine cellar.
     </p>
+    
+    <div class="evidence-gallery">
+      <div class="evidence-item" >
+        <h4>Final Menu</h4>
+        <p>Handwritten menu with strange symbols</p>
+      </div>
+      <div class="evidence-item" >
+        <h4>Bellini's Last Will</h4>
+        <p>3 Articles of the last will and testament of Marco Bellini</p>
+      </div>
+      <div class="evidence-item" >
+        <h4>Case File</h4>
+        <p>With information about suspects.</p>
+      </div>
+    </div>
   </div>
 
+  <!-- Investigation Form -->
   <div class="form-section">
+
+    <!-- Character Profiles -->
+    <div class="character-profiles" id="characterProfiles">
+      <h3 style="color: var(--accent-red); text-align: center; margin-bottom: 20px;">Suspects</h3>
+      <div class="character">
+        <h4>Clara Voss - Sous Chef</h4>
+        <p>Trained in Lyon; known to have clashed creatively with Bellini. Recently demoted.</p>
+      </div>
+      <div class="character">
+        <h4>Leonard Green – Food Critic</h4>
+        <p>Harsh reviews claiming “his ‘invention’ is an insult to both basmati and risotto” led to temporary closure of one of Bellini’s past restaurants.</p>
+      </div>
+      <div class="character">
+        <h4>Silvia Bellini – Wife</h4>
+        <p>Co-owner of the restaurant. Their relationship was reportedly strained.</p>
+      </div>
+        <div class="character">
+        <h4>Dario Sato – Dishwasher</h4>
+        <p>New hire. No known relationship with victim.</p>
+      </div>
+    </div>
 
     <!-- Question 1 -->
     <div id="q1-block" class="question-block">
-      <label for="q1">When was Marco murdered?</label>
-      <input type="text" id="q1" placeholder="Enter the time of death...">
-      <button onclick="checkAnswer('q1', '8:45 pm', 'clue1', 'q2-block')">Investigate</button>
+      <label for="q1">Who did Marco suspect?</label>
+      <input type="text" id="q1" placeholder="Enter the full name with correct capitalisation...">
+      <button onclick="checkAnswer('q1', 'Silvia Bellini', 'clue1', 'q2-block')"> Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint1')">Hint</button>
+      <div id="hint1" class="hint" style="display: none;">
+        Look at the menu carefully.
+      </div>
       <div id="clue1" class="clue" style="display: none;">
-        <strong>Evidence Found:</strong> The poison was most effective around that time — likely added just before the main course was served.
+        <strong>Correct:</strong> He was convinced his wife, Silvia Bellini, was plotting against him. Congratulations detective, open folder 2 for more information.
       </div>
     </div>
 
     <!-- Question 2 -->
     <div id="q2-block" class="question-block" style="display: none;">
-      <label for="q2">How was he murdered?</label>
-      <input type="text" id="q2" placeholder="Determine the method...">
-      <button onclick="checkAnswer('q2', 'poison', 'clue2', 'q3-block')">Analyze</button>
+      <label for="q2">Where was the poison?</label>
+      <input type="text" id="q2" placeholder="Determine the murder method, e.g. Secondo">
+      <button onclick="checkAnswer('q2', 'Wine', 'clue2', 'q3-block')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint2')">Hint</button>
+      <div id="hint2" class="hint" style="display: none;">
+        The autopsy mentioned "acute poisoning" and there were no signs of physical trauma...
+      </div>
       <div id="clue2" class="clue" style="display: none;">
-        <strong>Lab Results:</strong> Traces of a rare alkaloid were found in the risotto — a chef's weapon, no doubt.
+        <strong>Lab Results:</strong> Traces of oleander extract were found in the saffron risotto—a rare botanical poison. 
+        The killer had culinary knowledge to mask the bitter taste with expensive saffron.
       </div>
     </div>
 
     <!-- Question 3 -->
     <div id="q3-block" class="question-block" style="display: none;">
-      <label for="q3">Who do you suspect?</label>
+      <label for="q3">Who do you suspect? (First name only)</label>
       <input type="text" id="q3" placeholder="Name your primary suspect...">
-      <button onclick="checkAnswer('q3', 'vincenzo', 'clue3', 'final-reveal')">Accuse</button>
+      <button onclick="checkAnswer('q3', 'vincenzo', 'clue3', 'q4-block')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint3')">Hint</button>
+      <div id="hint3" class="hint" style="display: none;">
+        Who had kitchen access, botanical knowledge, and motive? Check the character profiles above...
+      </div>
       <div id="clue3" class="clue" style="display: none;">
-        <strong>Breakthrough:</strong> Vincenzo had access to the kitchen spices. He also deleted the security footage... The case is building.
+        <strong>Breakthrough:</strong> Vincenzo's apartment contained oleander plants and a book on "Poisonous Plants in Cuisine." 
+        His deleted messages reveal jealousy over Marco's success and fear of being replaced.
+      </div>
+    </div>
+
+    <!-- Question 4 - Motive -->
+    <div id="q4-block" class="question-block" style="display: none;">
+      <label for="q4">What was the motive? (One word)</label>
+      <input type="text" id="q4" placeholder="Why did the killer do it...">
+      <button onclick="checkAnswer('q4', 'jealousy', 'clue4', 'final-reveal')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint4')">Hint</button>
+      <div id="hint4" class="hint" style="display: none;">
+        Vincenzo feared being replaced and resented Marco's success. What emotion drove him to murder?
+      </div>
+      <div id="clue4" class="clue" style="display: none;">
+        <strong>Motive Revealed:</strong> Vincenzo's diary showed deep jealousy of Marco's fame and paranoia about being fired. 
+        He couldn't bear watching Marco succeed while he remained in the shadows.
       </div>
     </div>
 
@@ -444,68 +768,154 @@
     <div id="final-reveal" class="question-block" style="display: none;">
       <h2 style="color: var(--accent-red); text-align: center; margin-bottom: 20px;">Case Closed</h2>
       <div class="clue" style="display: block; font-size: 1.1em; text-align: center;">
-        <strong>Congratulations, Detective!</strong><br>
-        You've successfully solved the murder of Marco Bellini. Vincenzo has been arrested and charged with first-degree murder. 
-        The rare alkaloid was traced back to a specialty spice supplier he had connections with. Justice has been served.
+        <strong>Congratulations, Detective!</strong><br><br>
+        You've successfully solved the murder of Marco Bellini. <strong>Vincenzo Romano</strong> has been arrested and charged with first-degree murder. 
+        <br><br>
+        <strong>Case Summary:</strong><br>
+        • <strong>Killer:</strong> Vincenzo Romano (Sous Chef)<br>
+        • <strong>Weapon:</strong> Oleander extract in saffron risotto<br>
+        • <strong>Time:</strong> 8:45 PM, March 15th, 2025<br>
+        • <strong>Motive:</strong> Jealousy and fear of replacement<br>
+        • <strong>Key Evidence:</strong> Deleted security footage, botanical books, threatening messages<br><br>
+        Justice has been served. The kitchen is safe once again.
       </div>
+      
     </div>
 
   </div>
 
   <footer>
-    &copy; 2025 Rishi Goel | The Kitchen Files
+    &copy; 2025 Rishi Goel | The Kitchen Files | Birthday Present for Detective Sarah Ryan
   </footer>
 
-  <button id="toggleNotebook">📝 Notebook</button>
+  <button id="toggleNotebook">Notebook</button>
 
   <div id="notebook">
-    <h2>Detective Notes</h2>
-    <textarea id="notebookText" placeholder="Record your observations, theories, and evidence here...
-
-Key Facts:
-- Victim: Marco Bellini, renowned chef
-- Location: Trattoria Luce
-- Cause: Acute poisoning
-- Time: Around 8:45 PM
-- Weapon: Rare alkaloid in risotto
-
-Suspects:
-- Vincenzo (assistant, had access, deleted footage)
-
-Evidence:
-- Poisoned risotto
-- Deleted security footage
-- Victim's paranoid behavior
-- Locked diary in wine cellar"></textarea>
+    <h2>🔍 Detective Notes</h2>
+    <textarea id="notebookText" placeholder="Record your observations, theories, and evidence here..."></textarea>
   </div>
 
-  <!-- 🧠 JS Logic -->
   <script>
+    // Game state
+    let gameProgress = 0;
+    let totalQuestions = 4;
+    let audioInitialized = false;
+
+    // Audio management
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const muteBtn = document.getElementById('muteBtn');
+
+    // Audio controls
+    function initializeAudio() {
+      if (!audioInitialized) {
+        backgroundMusic.volume = 0.3;
+        backgroundMusic.play().catch(e => {
+          console.log('Autoplay prevented - user interaction required');
+          playPauseBtn.textContent = '▶️';
+        });
+        audioInitialized = true;
+      }
+    }
+
+    playPauseBtn.addEventListener('click', () => {
+      initializeAudio();
+      if (backgroundMusic.paused) {
+        backgroundMusic.play();
+        playPauseBtn.textContent = '⏸️';
+      } else {
+        backgroundMusic.pause();
+        playPauseBtn.textContent = '▶️';
+      }
+    });
+
+    muteBtn.addEventListener('click', () => {
+      if (backgroundMusic.muted) {
+        backgroundMusic.muted = false;
+        muteBtn.textContent = '🔊';
+        muteBtn.classList.remove('muted');
+      } else {
+        backgroundMusic.muted = true;
+        muteBtn.textContent = '🔇';
+        muteBtn.classList.add('muted');
+      }
+    });
+
+    // Progress indicator
+    function updateProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const progress = (gameProgress / totalQuestions) * 100;
+      progressBar.style.width = progress + '%';
+    }
+
+    // Game functions
     function startGame() {
       document.getElementById("start-screen").style.display = "none";
       document.getElementById("intro").style.display = "block";
       document.querySelector(".form-section").style.display = "block";
+      document.getElementById("characterProfiles").style.display = "block";
+      
+      // Initialize audio on user interaction
+      initializeAudio();
+      
+      // Create particles
+      createParticles();
+      
+      // Focus first input
+      setTimeout(() => {
+        document.getElementById('q1').focus();
+      }, 800);
+      
+      updateProgress();
+    }
+
+
+    function showHint(hintId) {
+      const hint = document.getElementById(hintId);
+      hint.style.display = hint.style.display === 'none' ? 'block' : 'none';
     }
 
     function checkAnswer(inputId, correctAnswer, clueId, nextId = null) {
-      const input = document.getElementById(inputId).value.trim().toLowerCase();
+      const input = document.getElementById(inputId);
+      const inputValue = input.value.trim().toLowerCase();
       const expected = correctAnswer.toLowerCase();
       const button = event.target;
       const questionBlock = button.closest('.question-block');
       
-      // Add loading state
+      // Disable input and add loading state
+      input.disabled = true;
       button.textContent = 'Investigating...';
       button.disabled = true;
       questionBlock.classList.add('question-loading');
       
       setTimeout(() => {
-        if (input.includes(expected)) {
+        if (inputValue.includes(expected) || inputValue === expected) {
           // Success
+          gameProgress++;
+          updateProgress();
+          
           document.getElementById(clueId).style.display = 'block';
           questionBlock.classList.add('success-flash');
           questionBlock.classList.remove('question-loading');
           button.textContent = 'Solved ✓';
           button.style.background = 'linear-gradient(135deg, #006600, #008800)';
+          
+          // Add success sound effect (visual feedback)
+          const successIndicator = document.createElement('div');
+          successIndicator.textContent = '✅ Correct!';
+          successIndicator.style.cssText = `
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            background: #00aa00;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            animation: fadeInOut 2s ease-out forwards;
+          `;
+          questionBlock.style.position = 'relative';
+          questionBlock.appendChild(successIndicator);
           
           if (nextId) {
             setTimeout(() => {
@@ -514,16 +924,28 @@ Evidence:
                 behavior: 'smooth', 
                 block: 'center' 
               });
-            }, 800);
+              
+              // Focus next input
+              const nextInput = document.querySelector(`#${nextId} input`);
+              if (nextInput) {
+                setTimeout(() => nextInput.focus(), 500);
+              }
+            }, 1200);
           }
+          
+          // Remove success indicator
+          setTimeout(() => {
+            successIndicator.remove();
+          }, 2000);
+          
         } else {
           // Wrong answer
           questionBlock.classList.remove('question-loading');
           button.textContent = 'Try Again';
           button.disabled = false;
+          input.disabled = false;
           
           // Show error feedback
-          const input = document.getElementById(inputId);
           input.style.borderColor = '#ff4444';
           input.style.boxShadow = '0 0 15px rgba(255, 68, 68, 0.3)';
           
@@ -534,20 +956,93 @@ Evidence:
           
           // Create temporary error message
           const errorMsg = document.createElement('div');
-          errorMsg.textContent = "That doesn't seem right... examine the evidence more carefully.";
+          errorMsg.innerHTML = `
+            <strong>Not quite right...</strong><br>
+            Examine the evidence more carefully. The truth is in the details.
+          `;
           errorMsg.style.cssText = `
             color: #ff6666;
             font-style: italic;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            border-radius: 6px;
             animation: fadeInUp 0.3s ease-out;
           `;
           button.parentNode.appendChild(errorMsg);
           
+          // Shake animation for wrong answer
+          questionBlock.style.animation = 'shake 0.5s ease-in-out';
+          setTimeout(() => {
+            questionBlock.style.animation = '';
+          }, 500);
+          
           setTimeout(() => {
             errorMsg.remove();
-          }, 3000);
+          }, 4000);
+          
+          // Refocus input
+          input.focus();
         }
-      }, 1200); // Simulate investigation time
+      }, 1500); // Simulate investigation time
+    }
+
+    function resetGame() {
+      gameProgress = 0;
+      updateProgress();
+      
+      // Reset all question blocks
+      const questionBlocks = document.querySelectorAll('.question-block');
+      questionBlocks.forEach((block, index) => {
+        if (index === 0) {
+          block.style.display = 'block';
+        } else {
+          block.style.display = 'none';
+        }
+        
+        // Reset inputs and buttons
+        const input = block.querySelector('input');
+        const button = block.querySelector('button:not(.hint-btn)');
+        const clue = block.querySelector('.clue');
+        const hints = block.querySelectorAll('.hint');
+        
+        if (input) {
+          input.value = '';
+          input.disabled = false;
+          input.style.borderColor = '';
+          input.style.boxShadow = '';
+        }
+        
+        if (button) {
+          button.disabled = false;
+          button.style.background = '';
+          button.textContent = button.textContent.replace('Solved ✓', '').trim();
+          if (button.textContent.includes('Investigate')) button.textContent = 'Investigate Timeline';
+          if (button.textContent.includes('Analyze')) button.textContent = 'Analyze Evidence';
+          if (button.textContent.includes('Accusation')) button.textContent = 'Make Accusation';
+          if (button.textContent.includes('Motive')) button.textContent = 'Determine Motive';
+        }
+        
+        if (clue) clue.style.display = 'none';
+        hints.forEach(hint => hint.style.display = 'none');
+        
+        // Remove any success indicators or error messages
+        const indicators = block.querySelectorAll('div:not(.clue):not(.hint)');
+        indicators.forEach(indicator => {
+          if (indicator.textContent.includes('Correct') || indicator.textContent.includes('Not quite')) {
+            indicator.remove();
+          }
+        });
+        
+        block.classList.remove('question-loading', 'success-flash');
+      });
+      
+      // Scroll to top and focus first input
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        document.getElementById('q1').focus();
+      }, 500);
     }
 
     // Notebook functionality
@@ -556,52 +1051,18 @@ Evidence:
       const button = document.getElementById('toggleNotebook');
       
       notebook.classList.toggle('open');
-      button.textContent = notebook.classList.contains('open') ? '✕ Close' : '📝 Notebook';
+      button.textContent = notebook.classList.contains('open') ? '✕' : 'Notebook';
     });
 
-    // Auto-save notebook content
+    // Auto-save notebook content (in memory only - no localStorage)
     const notebookText = document.getElementById('notebookText');
+    let savedNotes = '';
+
     notebookText.addEventListener('input', () => {
-      localStorage.setItem('detectiveNotes', notebookText.value);
+      savedNotes = notebookText.value;
     });
 
-    // Load saved notes
-    window.addEventListener('load', () => {
-      const savedNotes = localStorage.getItem('detectiveNotes');
-      if (savedNotes) {
-        notebookText.value = savedNotes;
-      }
-    });
-
-    // Add typing sound effect simulation
-    let typingSound = false;
-    document.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        if (!typingSound) {
-          typingSound = true;
-          // Could add actual sound here
-          setTimeout(() => { typingSound = false; }, 100);
-        }
-      }
-    });
-
-    // Easter egg: Konami code for extra clue
-    let konamiCode = '';
-    const konamiSequence = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightKeyBKeyA';
-    
-    document.addEventListener('keydown', (e) => {
-      konamiCode += e.code;
-      if (konamiCode.length > konamiSequence.length) {
-        konamiCode = konamiCode.slice(-konamiSequence.length);
-      }
-      
-      if (konamiCode === konamiSequence) {
-        alert('🔍 Secret Evidence Found: Marco left a hidden message in the wine cellar - "V knows the truth"');
-        konamiCode = '';
-      }
-    });
   </script>
 
 </body>
 </html>
-
