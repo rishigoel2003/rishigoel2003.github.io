@@ -359,7 +359,7 @@
       position: fixed;
       top: 0;
       right: -370px;
-      width: 360px;
+      width: 300px;
       background: linear-gradient(135deg, var(--secondary-bg) 0%, rgba(26, 26, 26, 0.95) 100%);
       border-left: 3px solid var(--accent-red);
       padding: 20px;
@@ -377,7 +377,7 @@
     }
 
     #notebook h2 {
-      font-size: 1.3em;
+      font-size: 1.2em;
       color: var(--text-primary);
       border-bottom: 2px solid var(--accent-red);
       margin-top: 0;
@@ -693,90 +693,153 @@
       </div>
       <div class="character">
         <h4>Leonard Green – Food Critic</h4>
-        <p>Harsh reviews claiming “his ‘invention’ is an insult to both basmati and risotto” led to temporary closure of one of Bellini’s past restaurants.</p>
+        <p>Former enemy turned ally — though his past review destroyed one of Marco’s restaurants stating his basmati risotto was “something more akin to a pilaf in denial”.</p>
       </div>
       <div class="character">
         <h4>Silvia Bellini – Wife</h4>
-        <p>Co-owner of the restaurant. Their relationship was reportedly strained.</p>
+        <p>Co-owner of Trattoria Luce; business-minded, image-conscious. Rumours of marital tension.</p>
       </div>
         <div class="character">
         <h4>Dario Sato – Dishwasher</h4>
-        <p>New hire. No known relationship with victim.</p>
+        <p>New hire; shy, tends to fade into the background.</p>
+      </div>
+        <div class="character">
+        <h4>Gianni Bellini – Cousin</h4>
+        <p>Former business partner of Marco; forced out of the restaurant years ago after a dispute over a stolen recipe. Recently reconciled.</p>
+      </div>
+        <div class="character">
+        <h4>Etta Romano – Pastry Chef</h4>
+        <p>Responsible for desserts at Trattoria Luce. Known for loyalty to Marco, but also for a perfectionist streak.</p>
       </div>
     </div>
 
     <!-- Question 1 -->
     <div id="q1-block" class="question-block">
-      <label for="q1">Who did Marco suspect?</label>
-      <input type="text" id="q1" placeholder="Enter the full name with correct capitalisation...">
+      <label for="q1">Who was Marco suspicious of?</label>
+      <input type="text" id="q1" placeholder="Enter the full name ...">
       <button onclick="checkAnswer('q1', 'Silvia Bellini', 'clue1', 'q2-block')"> Investigate</button>
       <button class="hint-btn" onclick="showHint('hint1')">Hint</button>
       <div id="hint1" class="hint" style="display: none;">
-        Look at the menu carefully.
+        Look at menu 3 carefully.
       </div>
       <div id="clue1" class="clue" style="display: none;">
-        <strong>Correct:</strong> He was convinced his wife, Silvia Bellini, was plotting against him. Congratulations detective, open folder 2 for more information.
+        <strong>Correct:</strong> He was convinced his wife, Silvia Bellini, was plotting against him. 
       </div>
     </div>
 
     <!-- Question 2 -->
     <div id="q2-block" class="question-block" style="display: none;">
-      <label for="q2">Where was the poison?</label>
-      <input type="text" id="q2" placeholder="Determine the murder method, e.g. Secondo">
-      <button onclick="checkAnswer('q2', 'Wine', 'clue2', 'q3-block')">Investigate</button>
+      <label for="q2">What did he try to do about it?</label>
+      <input type="text" id="q2" placeholder="e.g. kiss her, marry her, etc...">
+      <button onclick="checkAnswer('q2', 'kill her', 'clue2', 'q3-block')">Investigate</button>
       <button class="hint-btn" onclick="showHint('hint2')">Hint</button>
       <div id="hint2" class="hint" style="display: none;">
-        The autopsy mentioned "acute poisoning" and there were no signs of physical trauma...
+        Consider his paranoia.
       </div>
       <div id="clue2" class="clue" style="display: none;">
-        <strong>Lab Results:</strong> Traces of oleander extract were found in the saffron risotto—a rare botanical poison. 
-        The killer had culinary knowledge to mask the bitter taste with expensive saffron.
+        <strong>Correct:</strong> Driven by his paranoia he attempted to kill Silvia through a meal. Congratulations detective, open folder 2 for more information.
       </div>
     </div>
 
     <!-- Question 3 -->
     <div id="q3-block" class="question-block" style="display: none;">
-      <label for="q3">Who do you suspect? (First name only)</label>
-      <input type="text" id="q3" placeholder="Name your primary suspect...">
-      <button onclick="checkAnswer('q3', 'vincenzo', 'clue3', 'q4-block')">Investigate</button>
+      <label for="q3">How did he try to kill her? </label>
+      <input type="text" id="q3" placeholder="Enter a single word">
+      <button onclick="checkAnswer('q3', 'tyramine', 'clue3', 'q4-block')">Investigate</button>
       <button class="hint-btn" onclick="showHint('hint3')">Hint</button>
       <div id="hint3" class="hint" style="display: none;">
-        Who had kitchen access, botanical knowledge, and motive? Check the character profiles above...
+        The answer is a chemical. Consider her medication.
       </div>
       <div id="clue3" class="clue" style="display: none;">
-        <strong>Breakthrough:</strong> Vincenzo's apartment contained oleander plants and a book on "Poisonous Plants in Cuisine." 
-        His deleted messages reveal jealousy over Marco's success and fear of being replaced.
+        <strong>Correct:</strong> The hidden herb blend in Nero Segreto was meant to contain high levels of tyramine, a chemical that can cause severe reactions if taken with Phenelzine sulfate.
       </div>
     </div>
 
-    <!-- Question 4 - Motive -->
+    <!-- Question 4 -->
     <div id="q4-block" class="question-block" style="display: none;">
-      <label for="q4">What was the motive? (One word)</label>
-      <input type="text" id="q4" placeholder="Why did the killer do it...">
-      <button onclick="checkAnswer('q4', 'jealousy', 'clue4', 'final-reveal')">Investigate</button>
+      <label for="q4">How did she avoid death?</label>
+      <input type="text" id="q4" placeholder="Enter a single word">
+      <button onclick="checkAnswer('q4', 'Clara', 'clue4', 'q5-block')">Investigate</button>
       <button class="hint-btn" onclick="showHint('hint4')">Hint</button>
       <div id="hint4" class="hint" style="display: none;">
-        Vincenzo feared being replaced and resented Marco's success. What emotion drove him to murder?
+        The answer is a name.
       </div>
       <div id="clue4" class="clue" style="display: none;">
-        <strong>Motive Revealed:</strong> Vincenzo's diary showed deep jealousy of Marco's fame and paranoia about being fired. 
-        He couldn't bear watching Marco succeed while he remained in the shadows.
+        <strong>Correct:</strong> Frustrated with Marco, Clara Voss, the sous chef, had secretly changed the hidden herb blend to avoid tyramine, accidentally saving Silvia's life.
       </div>
     </div>
 
+    <!-- Question 5 -->
+    <div id="q5-block" class="question-block" style="display: none;">
+      <label for="q5">Who did Silvia go to after she found out?</label>
+      <input type="text" id="q5" placeholder="Enter a single word">
+      <button onclick="checkAnswer('q5', 'Leonard', 'clue5', 'q6-block')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint5')">Hint</button>
+      <div id="hint5" class="hint" style="display: none;">
+        The answer is a name.
+      </div>
+      <div id="clue5" class="clue" style="display: none;">
+        <strong>Correct:</strong> Silvia conspired with Leonard Green, the food critic, plotting to kill Marco. 
+      </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div id="q6-block" class="question-block" style="display: none;">
+      <label for="q6">What did Silvia offer Leonard?</label>
+      <input type="text" id="q6" placeholder="Enter 2 words">
+      <button onclick="checkAnswer('q6', 'Head Chef', 'clue6', 'q7-block')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint6')">Hint</button>
+      <div id="hint6" class="hint" style="display: none;">
+        The answer is a kitchen position.
+      </div>
+      <div id="clue6" class="clue" style="display: none;">
+        <strong>Correct:</strong> Silvia offered leonard head chef if he helped her kill Marco. Congratulations detective, open folder 3 for more information.
+      </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div id="q7-block" class="question-block" style="display: none;">
+      <label for="q7">Where was the poison which killed Marco Bellini?</label>
+      <input type="text" id="q7" placeholder="Enter a single word">
+      <button onclick="checkAnswer('q7', 'Moscato', 'clue7', 'q8-block')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint7')">Hint</button>
+      <div id="hint7" class="hint" style="display: none;">
+        The answer is a food/drink.
+      </div>
+      <div id="clue7" class="clue" style="display: none;">
+        <strong>Correct:</strong> The poison that killed Marco was found in the Moscato he drank with his entree, it was slow acting so only killed him during dessert. The killer must have known this.
+      </div>
+      </div>
+
+
+    <!-- Question 8 -->
+    <div id="q8-block" class="question-block" style="display: none;">
+      <label for="q8">Who was the killer?</label>
+      <input type="text" id="q8" placeholder="Enter their full name">
+      <button onclick="checkAnswer('q8', 'Clara Voss', 'clue8', 'final-reveal')">Investigate</button>
+      <button class="hint-btn" onclick="showHint('hint8')">Hint</button>
+      <div id="hint8" class="hint" style="display: none;">
+        The answer is a name.
+      </div>
+      <div id="clue8" class="clue" style="display: none;">
+        <strong>Correct:</strong> The killer was Clara Voss, the sous chef. Driven by jealousy and fear of being replaced, she poisoned Marco's Moscato, attempting to kill Silvia and Leonard in the process, claiming head chef for herself.
+      </div>
+    </div>
+
+
+    
     <!-- Final Reveal -->
     <div id="final-reveal" class="question-block" style="display: none;">
       <h2 style="color: var(--accent-red); text-align: center; margin-bottom: 20px;">Case Closed</h2>
       <div class="clue" style="display: block; font-size: 1.1em; text-align: center;">
         <strong>Congratulations, Detective!</strong><br><br>
-        You've successfully solved the murder of Marco Bellini. <strong>Vincenzo Romano</strong> has been arrested and charged with first-degree murder. 
+        You've successfully solved the murder of Marco Bellini. <strong>Clara Voss</strong> has been arrested and charged with first-degree murder. 
         <br><br>
         <strong>Case Summary:</strong><br>
-        • <strong>Killer:</strong> Vincenzo Romano (Sous Chef)<br>
-        • <strong>Weapon:</strong> Oleander extract in saffron risotto<br>
-        • <strong>Time:</strong> 8:45 PM, March 15th, 2025<br>
-        • <strong>Motive:</strong> Jealousy and fear of replacement<br>
-        • <strong>Key Evidence:</strong> Deleted security footage, botanical books, threatening messages<br><br>
+        • <strong>Killer:</strong> Clara Voss (Sous Chef)<br>
+        • <strong>Weapon:</strong> Oleander extract in Moscato<br>
+        • <strong>Time:</strong> 8:45 PM, July 31st, 2025<br>
+        • <strong>Motive:</strong> Desire for Head Chef<br>
         Justice has been served. The kitchen is safe once again.
       </div>
       
@@ -791,14 +854,14 @@
   <button id="toggleNotebook">Notebook</button>
 
   <div id="notebook">
-    <h2>🔍 Detective Notes</h2>
+    <h2>Detective Notes</h2>
     <textarea id="notebookText" placeholder="Record your observations, theories, and evidence here..."></textarea>
   </div>
 
   <script>
     // Game state
     let gameProgress = 0;
-    let totalQuestions = 4;
+    let totalQuestions = 8;
     let audioInitialized = false;
 
     // Audio management
@@ -809,7 +872,7 @@
     // Audio controls
     function initializeAudio() {
       if (!audioInitialized) {
-        backgroundMusic.volume = 0.3;
+        backgroundMusic.volume = 0.2;
         backgroundMusic.play().catch(e => {
           console.log('Autoplay prevented - user interaction required');
           playPauseBtn.textContent = '▶️';
@@ -930,13 +993,13 @@
               if (nextInput) {
                 setTimeout(() => nextInput.focus(), 500);
               }
-            }, 1200);
+            }, 120);
           }
           
           // Remove success indicator
           setTimeout(() => {
             successIndicator.remove();
-          }, 2000);
+          }, 200);
           
         } else {
           // Wrong answer
@@ -952,7 +1015,7 @@
           setTimeout(() => {
             input.style.borderColor = '';
             input.style.boxShadow = '';
-          }, 2000);
+          }, 200);
           
           // Create temporary error message
           const errorMsg = document.createElement('div');
