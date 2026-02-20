@@ -3,348 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishi Goel</title>
-    <link rel="stylesheet" href="styles.css">
-    <style> 
+    <title>The Fun Stuff — Rishi Goel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .animated {
-            animation: slideIn 1s ease-out;
-        } 
-
-        @keyframes slideInFromLeft {
-            0% {
-                transform: translateX(-30%);
-            }
-            100% {
-                transform: translateX(0);
-            }
+        :root {
+            --ink:          #0f0f0f;
+            --ink-mid:      #3a3a3a;
+            --ink-soft:     #6b6b6b;
+            --ink-faint:    #a8a8a8;
+            --paper:        #f7f4ef;
+            --paper-warm:   #ede9e2;
+            --deep:         #0d1520;
+            --accent:       #b5402a;
+            --accent-gold:  #c9a84c;
+            --gold-light:   #e8d49a;
+            --border:       rgba(15,15,15,0.12);
+            --border-light: rgba(255,255,255,0.12);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body:    'DM Sans', system-ui, sans-serif;
+            --font-mono:    'DM Mono', 'Courier New', monospace;
+            --max-w: 1140px;
         }
 
-        @keyframes slideInFromRight {
-            0% {
-                transform: translateX(30%);
-            }
-            100% {
-                transform: translateX(0);
-            }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
 
-        
-        .animated-slide-in {
-            animation: slideInFromLeft 1s ease-out;
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--paper); }
+        ::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--ink-mid); }
+
+        /* ── Nav ── */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 22px 48px;
+            transition: background 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
         }
-
-        .animated-slide-in-right {
-            animation: slideInFromRight 1s ease-out;
+        .top-nav.scrolled {
+            background: rgba(247, 244, 239, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 14px 48px;
+            box-shadow: 0 1px 0 var(--border);
         }
-
-        .description {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .description.visible {
-            max-height: 0; /* Adjust as needed */
-        }
-
-        li {
-            margin-bottom: 10px; /* Add margin between list items */
-            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
-        }
-
-        li.hidden-description {
-            margin-bottom: -30px; /* Reduce margin when description is hidden */
-        }
-
-
-        @keyframes slideIn {
-            0% {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .fun-stuff {
+        .nav-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100%;
-            animation: slideIn 1s ease forwards; /* Apply the animation */
+            gap: 40px;
         }
-
-        .fun-stuff h1 {
-            font-size: 3em;
-        }
-
-        @keyframes slideInFromLeft2 {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        .photo-container {
+        .nav-back {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
             display: flex;
-            overflow: hidden; /* Ensure photos outside container are hidden */
-            animation: slideInFromLeft2 1s ease forwards; /* Apply the animation */
+            align-items: center;
+            gap: 6px;
+            transition: color 0.25s;
+        }
+        .top-nav.scrolled .nav-back { color: var(--ink-soft); }
+        .nav-back:hover { color: var(--accent); }
+        .nav-back svg { transition: transform 0.2s; }
+        .nav-back:hover svg { transform: translateX(-3px); }
+
+        .nav-name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            margin-left: auto;
+            transition: color 0.3s;
+        }
+        .top-nav.scrolled .nav-name { color: var(--ink); }
+
+        .nav-social {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-left: 20px;
+        }
+        .nav-social a {
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            transition: color 0.25s;
+        }
+        .top-nav.scrolled .nav-social a { color: var(--ink-soft); }
+        .nav-social a:hover { color: var(--accent); }
+
+        /* ── Email Toast ── */
+        .email-toast {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: var(--ink);
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.04em;
+            padding: 10px 18px;
+            border-radius: 4px;
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        .email-toast.show { opacity: 1; transform: translateY(0); }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: var(--deep);
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+        .hero-photo-strip {
+            position: absolute;
+            inset: 0;
+            display: flex;
+        }
+        .hero-photo-strip img {
+            flex: 1;
+            object-fit: cover;
+            object-position: center top;
+            filter: brightness(0.55) saturate(0.8);
+            transition: filter 0.4s ease;
+        }
+        .hero-photo-strip img:hover { filter: brightness(0.75) saturate(1); }
+        .hero-photo-strip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13,21,32,0.9) 0%, rgba(13,21,32,0.2) 60%, transparent 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 48px 64px;
+            max-width: var(--max-w);
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeUp 1s ease-out forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 12px;
+        }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            color: white;
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+        }
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
         }
 
-        .photo {
-            margin: 0 10px; /* Add spacing between photos */
+        /* ── Sections ── */
+        .section { padding: 100px 0; }
+        .section-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 64px;
         }
-        
-        main {
-            padding-top: 200px; /* Adjust the value as needed */
+        .label-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 12px;
+        }
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--ink);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 48px;
         }
 
-        ::-webkit-scrollbar {
-            width: 10px; /* width of the scrollbar */
+        /* ── Reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
+
+        /* ── Adventure Section ── */
+        .section-dark { background: var(--deep); }
+        .section-dark .section-heading { color: white; }
+        .section-dark .label-tag { color: rgba(255,255,255,0.4); }
+
+        .adventure-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+            margin-bottom: 60px;
+        }
+        .adventure-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+        }
+        .adventure-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 8px;
+        }
+        .adventure-meta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 20px;
+        }
+        .adventure-text p {
+            font-size: 0.97rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.75;
+            margin-bottom: 14px;
+        }
+        .highlight-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .highlight-pill {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            padding: 5px 12px;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 100px;
+            color: rgba(255,255,255,0.5);
         }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; /* color of the track */
+        /* ── Slider ── */
+        .slider-section { background: var(--deep); padding-bottom: 100px; }
+        .slider-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 64px;
+            position: relative;
         }
+        .slider {
+            display: flex;
+            aspect-ratio: 16/9;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            border-radius: 8px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        }
+        .slider::-webkit-scrollbar { display: none; }
+        .slider img {
+            flex: 1 0 100%;
+            scroll-snap-align: start;
+            object-fit: cover;
+        }
+        .slider-nav {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .slider-nav a {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: background 0.25s, transform 0.25s;
+        }
+        .slider-nav a:hover { background: var(--gold-light); transform: scale(1.3); }
 
+        /* ── Projects Section ── */
+        .section-projects { background: var(--paper-warm); }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.1);
+        }
+        .project-card-body {
+            padding: 32px;
+        }
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+        }
+        .project-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .project-card p {
+            font-size: 0.92rem;
+            color: var(--ink-soft);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 2px;
+            transition: color 0.25s, border-color 0.25s;
+        }
+        .project-link:hover { color: var(--accent); border-color: var(--accent); }
+        .project-link svg { transition: transform 0.2s; }
+        .project-link:hover svg { transform: translateX(3px); }
 
-        .text {
-    width: 500px; /* Adjust the width according to your preference */
-}
+        /* ── Footer ── */
+        .site-footer {
+            background: var(--ink);
+            padding: 40px 0;
+        }
+        .footer-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-left { display: flex; flex-direction: column; gap: 4px; }
+        .footer-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; color: white; }
+        .footer-sub { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+        .footer-right a { font-family: var(--font-mono); font-size: 0.78rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.25s; }
+        .footer-right a:hover { color: var(--gold-light); }
 
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .top-nav, .top-nav.scrolled { padding: 16px 24px; }
+            .section-inner, .slider-wrapper, .footer-inner { padding-left: 24px; padding-right: 24px; }
+            .hero-content { padding: 36px 24px; }
+            .adventure-block { grid-template-columns: 1fr; gap: 32px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .footer-right { align-items: flex-start; }
+        }
     </style>
-
 </head>
 <body>
-    <header id="main-header">
-        <div id="corner-image-container" style="position: absolute; top: -4px; left: -1015px; z-index: 9998;">
-            <a id = "back-to-index" href="index.html">
-                <img id="corner-image" src="rytte.jpg" alt="Rytte" style="width: 17.3%; height: auto;">
-                <h3 style="margin-top: -30px; font: 1em sans-serif; text-decoration: none;">The Academic Stuff</h3>
+
+    <!-- Nav -->
+    <nav class="top-nav" id="top-nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-back">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                The Academic Stuff
             </a>
+            <a href="index.html" class="nav-name">RG</a>
+            <div class="nav-social">
+                <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/" target="_blank" title="LinkedIn">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/_rishigoel/?hl=en" target="_blank" title="Instagram">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="mailto:rishigoel25@gmail.com" onclick="copyEmail(event)" title="Copy email">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                </a>
+            </div>
         </div>
-        <div class="fun-stuff" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-            <h1 style="font-size: 3em; position: relative;">
-                The Fun Stuff! 
-                
-            </h1>
+    </nav>
+    <div id="email-toast" class="email-toast">Email copied!</div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-photo-strip">
+            <img src="Rishi1.jpg" alt="">
+            <img src="Rishi2.jpg" alt="">
+            <img src="Rishi3.jpg" alt="">
+            <img src="Rishi4.jpg" alt="">
+            <img src="Rishi5.jpg" alt="">
         </div>
-        
-        
-        <div style="position: absolute; top: 10px; right: 10px;"> 
-            <a href="#" id="email-link" onclick="copyEmail()" style=" text-decoration: none; color: inherit;">
-                <img src="email.jpg" alt="Email" style="width: 30px; margin-right: 10px; margin-bottom: 4px;" title="">
-                <span id="copy-email-text" style="color: black;"></span>
-            </a>
-                        <!-- <a href="tel:+61432861001"><img src="phone.jpg" alt="Facebook" style="width: 30px; margin-right: 10px;"></a> -->
-            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="LinkedIn_logo.png" alt="Linkedin" style="width: 30px; margin-right: 10px;"></a>
+        <div class="hero-content">
+            <span class="hero-label">Life Beyond the Lab</span>
+            <h1 class="hero-title">The <em>Fun</em> Stuff</h1>
         </div>
-        
     </header>
-    
 
     <main>
-        <div class="photo-container" style="justify-content: center;">
-            <img class="photo" src="Rishi1.jpg" alt="Photo 1" style="width: 20%;">  
-            <img class="photo" src="Rishi2.jpg" alt="Photo 2" style="width: 20%;">
-            <img class="photo" src="Rishi3.jpg" alt="Photo 3" style="width: 20%;">
-            <img class="photo" src="Rishi4.jpg" alt="Photo 4" style="width: 20%;">
-            <img class="photo" src="Rishi5.jpg" alt="Photo 5" style="width: 20%;">
-        </div>
 
+        <!-- Adventures -->
+        <section class="section section-dark reveal" id="adventures">
+            <div class="section-inner">
+                <span class="label-tag">01 — Adventures</span>
+                <h2 class="section-heading">Exploring the world beyond Queensland.</h2>
 
-        
-        <div><h1 style="margin-bottom: 100px; margin-top:100px; text-align: center; font-size: 36px;">Adventures</h1></div>
-
-
-
-
-<section id="adventures" class="slide-right">
-    <div class="image-container" style="
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 40px;
-        flex-wrap: wrap;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: transparent; /* ⬅ Fix black box */
-        box-shadow: none;              /* ⬅ Just in case */
-    ">
-        <img src="Norway_start.jpg" alt="Image 1" style="
-            width: 45%;
-            border-radius: 10px;
-            object-fit: contain;       /* ⬅ Fix cut-off image */
-            max-height: 100%;
-        ">
-
-        <div class="text" style="
-            width: 45%;
-            min-width: 300px;
-            font-size: 1em;
-        ">
-            <h2>Norwegian Exchange (2023)</h2>
-            <p>My 7 month expedition to the Norwegian coast side allowed me to grow, understand myself and fine-tune my values while broadening my worldview and intercultural skills. Experiencing a life so different from my own has developed my communication, independence and creativity in a way no other experience has.</p>
-            <p>Also it was ridiculously fun! Going hiking, snowboarding and exploring was an adventure like no other. Highlights include hiking through the Lofoten islands, polar swims in the freezing fjords, paragliding around Bergen, hiking a marathon in a day, seeing the northern lights, and of course, the uncountable number of friends I made along the way.</p>
-            <p>View some photos below!</p>
-        </div>
-    </div>
-</section>
-
-
-
-          <div><h1 style="margin-bottom: 30px;"></h1></div>
-
-          <div class="slider-wrapper">
-            <div class="slider">
-                <img id="slide-1" src="Norway1.jpg" alt="" />
-                <img id="slide-2" src="Norway2.jpg" alt="" />
-                <img id="slide-3" src="Norway3.jpg" alt="" />
-                <img id="slide-4" src="Norway4.jpg" alt="" />
-                <img id="slide-5" src="Norway5.png" alt="" />
-                <img id="slide-6" src="Norway6.png" alt="" />
-            </div>
-            <div class="slider-nav">
-                <a href="#slide-1"></a>
-                <a href="#slide-2"></a>
-                <a href="#slide-3"></a>
-                <a href="#slide-4"></a>
-                <a href="#slide-5"></a>
-                <a href="#slide-6"></a>
-            </div>
-        </div>
-
-        <!-- <div><h1 style="margin-bottom: 30px;"></h1></div>
-
-
-        <div class="image-container" style="justify-content: center;">
-            <img src="SF_start.jpg" alt="Image 1" style="margin-left: 100px; width: 70%; ">
-            <div class="text" style="width: 20px;">
-              <h2>San Francisco Startup Adventure (2024)</h2>
-              <p>
-              </p>
-            </div>
-          </div>
-
-
-          <div><h1 style="margin-bottom: 30px;"></h1></div>
-
-          <div class="slider-wrapper">
-            <div class="slider">
-                <img id="slide-7" src="SF.jpg" alt="" />
-                <img id="slide-8" src="SF.jpg" alt="" />
-                <img id="slide-9" src="SF.jpg" alt="" />
-                <img id="slide-10" src="SF.jpg" alt="" />
-                <img id="slide-11" src="SF.jpg" alt="" />
-                <img id="slide-12" src="SF.jpg" alt="" />
-            </div>
-            <div class="slider-nav">
-                <a href="#slide-7"></a>
-                <a href="#slide-8"></a>
-                <a href="#slide-9"></a>
-                <a href="#slide-10"></a>
-                <a href="#slide-11"></a>
-                <a href="#slide-12"></a>
-            </div>
-        </div>
-        </section> -->
-
-        <!-- <div><h1 style="margin-bottom: 100px; margin-top:100px; text-align: center; font-size: 36px;">Hobbies</h1></div> -->
-
-
-
-<!-- 
-        <section id="hobbies" class="slide-right">
-        <div class="image-container">
-
-            <img src="Rishi1.jpg" alt="">
-            <img class = "transition image" src="Rishi2.jpg" alt="">
-        </div>
-
-
-        
-        </section> -->
-
-
-
-        <div><h1 style="margin-bottom: 100px; margin-top:100px; text-align: center; font-size: 36px;">Projects</h1></div>
-
-        <section id="projects" class="slide-right">
-            <div style="text-align: center;">
-                <h2>The Murder of Marco Bellini</h2>
-                <p style="max-width: 600px; margin: 0 auto 20px;">
-                    A murder mystery game designed for an immersive and theatrical dinner experience. 
-                    Explore the clues, unravel the secrets, and uncover the truth behind Marco’s mysterious death.
-                </p>
-                <a href="marco.html" style="text-decoration: none; color: white; background-color: black; padding: 10px 20px; border-radius: 8px;">
-                    Explore Project
-                </a>
+                <div class="adventure-block">
+                    <img src="Norway_start.jpg" alt="Norwegian Exchange" class="adventure-img reveal">
+                    <div class="adventure-text reveal">
+                        <span class="adventure-meta">Bergen, Norway · 2023</span>
+                        <h2>Seven Months on the Norwegian Coastline</h2>
+                        <p>My exchange semester at the University of Bergen turned into one of the most formative experiences of my life. Living at the edge of the fjords, I was forced to grow in ways that no lecture hall or lab could replicate — developing independence, intercultural communication, and a deeper understanding of myself and my values.</p>
+                        <p>Beyond the personal growth, it was simply an extraordinary adventure. From polar swims in freezing fjords to paragliding above Bergen, the Norwegian landscape offered something new every weekend.</p>
+                        <div class="highlight-list">
+                            <span class="highlight-pill">⛷ Snowboarding</span>
+                            <span class="highlight-pill">🏔 Lofoten Islands</span>
+                            <span class="highlight-pill">🌊 Polar Swimming</span>
+                            <span class="highlight-pill">🪂 Paragliding</span>
+                            <span class="highlight-pill">🌌 Northern Lights</span>
+                            <span class="highlight-pill">🥾 Marathon-length Day Hike</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- Norway Slider -->
+        <div class="slider-section">
+            <div class="slider-wrapper">
+                <div class="slider">
+                    <img id="slide-1" src="Norway1.jpg" alt="Norway 1">
+                    <img id="slide-2" src="Norway2.jpg" alt="Norway 2">
+                    <img id="slide-3" src="Norway3.jpg" alt="Norway 3">
+                    <img id="slide-4" src="Norway4.jpg" alt="Norway 4">
+                    <img id="slide-5" src="Norway5.png" alt="Norway 5">
+                    <img id="slide-6" src="Norway6.png" alt="Norway 6">
+                </div>
+                <div class="slider-nav">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                    <a href="#slide-4"></a>
+                    <a href="#slide-5"></a>
+                    <a href="#slide-6"></a>
+                </div>
+            </div>
+        </div>
 
+        <!-- Projects -->
+        <section class="section section-projects reveal" id="projects">
+            <div class="section-inner">
+                <span class="label-tag">02 — Projects</span>
+                <h2 class="section-heading">Things built for the love of it.</h2>
 
+                <div class="projects-grid">
+                    <div class="project-card reveal">
+                        <div class="project-card-body">
+                            <span class="project-tag">Interactive Experience · Game Design</span>
+                            <h3>The Murder of Marco Bellini</h3>
+                            <p>A murder mystery game designed for a fully immersive theatrical dinner experience. Players explore handcrafted clues, interrogate suspects, and piece together the truth behind Marco's mysterious death — all over a three-course meal.</p>
+                            <a href="marco.html" class="project-link">
+                                Explore Project
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
 
-        
+                    <!-- Placeholder card for future projects -->
+                    <div class="project-card reveal" style="border-style: dashed; background: transparent;">
+                        <div class="project-card-body" style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:200px; text-align:center;">
+                            <span class="project-tag" style="margin-bottom:8px;">More Coming Soon</span>
+                            <p style="font-size:0.85rem; color:var(--ink-faint);">New projects in the works — check back soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <footer>
-        <p>Email: rishigoel25@gmail.com</p>
-        <p>Phone: +61 432 861 001</p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-name">Rishi Goel</span>
+                <span class="footer-sub">Cambridge · Quantum Physics · 2026</span>
+            </div>
+            <div class="footer-right">
+                <a href="mailto:rishigoel25@gmail.com">rishigoel25@gmail.com</a>
+                <a href="index.html">← Back to the Academic Stuff</a>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // Sticky nav
+        const nav = document.getElementById('top-nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                    if (!entry.target.classList.contains('animated-slide-in')&& !entry.target.classList.contains('slide-right')) {
-                        entry.target.classList.add('animated-slide-in'); // Adding the default class for animation
-                    }
-                    if (!entry.target.classList.contains('animated-slide-in-right') && entry.target.classList.contains('slide-right')) {
-                        entry.target.classList.add('animated-slide-in-right'); // Adding slide-in-from-right class if the section has slide-right class
-                    }
-            }
-                });
-            }, { threshold: 0 });
-
-            sections.forEach(section => {
-                observer.observe(section);
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
             });
-        });
+        }, { threshold: 0.07 });
+        reveals.forEach(el => observer.observe(el));
 
-
-        document.getElementById('back-to-index').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default behavior of the link
-            
-            var cornerImage = document.getElementById('corner-image');
-            var cornerImageContainer = document.getElementById('corner-image-container');
-
-            cornerImage.style.transition = 'all 0.5s ease';
-            cornerImageContainer.style.transition = 'left 0.8s ease, top 0.7s ease'; // Apply transition to the container
-            cornerImage.style.transform = 'scale(5.7)';
-            cornerImageContainer.style.top = '325px';
-            cornerImageContainer.style.left = '0px';
-            
-            setTimeout(function() {
-            window.location.href = 'index.html';
-            }, 700); 
-        });
+        // Copy email
+        function copyEmail(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText('rishigoel25@gmail.com').then(() => {
+                const toast = document.getElementById('email-toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        }
     </script>
 </body>
-
-
 </html>

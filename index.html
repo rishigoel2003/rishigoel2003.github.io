@@ -3,400 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishi Goel</title>
+    <title>Rishi Goel — Quantum Physicist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <style> 
-
-        .animated {
-            animation: slideIn 1s ease-out;
-        } 
-
-        @keyframes slideInFromLeft {
-            0% {
-                transform: translateX(-30%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-        
-        .animated-slide-in {
-            animation: slideInFromLeft 1s ease-out;
-        }
-
-        .description {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .description.visible {
-            max-height: 0; /* Adjust as needed */
-        }
-
-        li {
-            margin-bottom: 10px; /* Add margin between list items */
-            transition: margin-bottom 0.5s ease; /* Add transition for smoother animation */
-        }
-
-        li.hidden-description {
-            margin-bottom: -30px; /* Reduce margin when description is hidden */
-        }
-
-        .container {
-            margin: 0 20px; /* Adjust margins as needed */
-        }
-
-
-        
-    </style>
 </head>
 <body>
-    <header id="main-header" style="background-image: url('rytte.jpg'); background-size: cover; background-position: center; height: 100vh; color: white; text-align: center; position: relative; overflow-x: hidden;">
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-            <h1 style="font-size: 3em;">Who's This Rishi Guy?</h1>
-        </div>
-        <div style = "position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%)">
-            <nav>            
-                <ul style="font-size: 40px; text-decoration: none;">
-                <!-- <li><a href="#about me">About Me</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#Work Experience">Work Experience</a></li>
-                <li><a href="#Leadership & Entrepreneurship">Leadership & Entrepreneurship</a></li>
-                <li><a href="#Volunteering">Volunteering</a></li>
-                <li><a href="#Education">Education</a></li>
-                <li><a href="#Awards">Awards</a></li>
-                <li><a href="#Languages">Languages</a></li> -->
-                <!-- <li><a href = "index.html">The Academic Stuff</li> -->
-                <li><a href="Fun.html" id="hobbies-link">The Fun Stuff</a></li>
-                </ul>
-            </nav>
 
+    <!-- Top Navigation -->
+    <nav class="top-nav" id="top-nav">
+        <div class="nav-inner">
+            <a class="nav-name" href="#">RG</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="Fun.html">Fun Stuff →</a></li>
+            </ul>
+            <div class="nav-social">
+                <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/" target="_blank" title="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://github.com/rishigoel2003" target="_blank" title="GitHub">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="mailto:rishigoel25@gmail.com" onclick="copyEmail(event)" title="Copy email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                </a>
+            </div>
         </div>
-        <div style="position: absolute; top: 10px; right: 10px;"> 
-            <a href="#" id="email-link" onclick="copyEmail()" style=" text-decoration: none; color: inherit;">
-                <img src="email.jpg" alt="Email" style="width: 30px; margin-right: 10px; margin-bottom: 4px;" title="">
-                <span id="copy-email-text" style="color: black;"></span>
+    </nav>
+    <div id="email-toast" class="email-toast">Email copied!</div>
+
+    <!-- Hero -->
+    <header class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-label">Cambridge · Quantum Physics · Class of 2026</div>
+            <h1 class="hero-name">Rishi <em>Goel</em></h1>
+            <p class="hero-tagline">Quantum physicist. Valedictorian. Entrepreneur.<br>Starting full-time at IMC Trading, Sydney — November 2026.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">6.93</span>
+                    <span class="stat-label">GPA / 7.00</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">2</span>
+                    <span class="stat-label">Published Papers</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">£32k</span>
+                    <span class="stat-label">Cambridge Scholarship</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">10</span>
+                    <span class="stat-label">Scholarships & Awards</span>
+                </div>
+            </div>
+            <a href="#about" class="hero-scroll">
+                <span>Scroll to explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             </a>
-                        <!-- <a href="tel:+61432861001"><img src="phone.jpg" alt="Facebook" style="width: 30px; margin-right: 10px;"></a> -->
-            <a href="https://www.facebook.com/rishi.goel.7737/"><img src="facebook_logo.png" alt="Facebook" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.instagram.com/_rishigoel/?hl=en"><img src="Instagram_logo.png" alt="Instagram" style="width: 30px; margin-right: 10px;"></a>
-            <a href="https://www.linkedin.com/in/rishi-goel-3990b1205/"><img src="LinkedIn_logo.png" alt="Linkedin" style="width: 30px; margin-right: 10px;"></a>
         </div>
-        <!-- <div style = "position: absolute; top: 10px; left: 10px; color: white;">
-            <a href="index.html"; style = "color: white; font-size: 2em; text-decoration: none;">Rishi Goel</a>
-        </div> -->
     </header>
-    
-    <!-- <div id="moving-box">
-        <img src="rishi-goel (2).jpg" alt="me">
-    </div> -->
 
-    
-    <main class = "container">
-        <section id="about me" class="animated-slide-in">
-            
-            <h2>About Me</h2>
-             <p>Highly motivated and enthusiastic physics student who wishes to ensure
-            mathematical algorithms are used for the betterment of human lives. As
-            passionate about research and innovation as for sustainability. Currently in
-            semester 1 of fourth year of university - recently returned from exchange at
-            University of Bergen. Holds a GPA of 6.9 and 2 academic and leadership
-            scholarships. Well versed in machine learning,
-            hierarchical time series forecasting and quantum machine learning kernel
-            methods.</p>
+    <main>
 
-        <section id = "publications">
-            <h2>Publications</h2>
-            <ul>
-            <li class = "hidden-description">
-                <h3><a href="https://arxiv.org/abs/2401.05647" target="_blank">Quantum Kernel Machine Learning With Continuous Variables</a></h3>
-                <p class = "description">The popular qubit framework has dominated recent work on quantum kernel machine learning, with results characterising expressivity, learnability and generalisation. As yet, there is no comparative framework to understand these concepts for continuous variable (CV) quantum computing platforms. In this paper we represent CV quantum kernels as closed form functions and use this representation to provide several important theoretical insights. We derive a general closed form solution for all CV quantum kernels and show every such kernel can be expressed as the product of Gaussian and algebraic function terms. Furthermore, we present quantification of a quantum-classical separation for all quantum kernels via a hierarchical notion of the ``stellar rank" of the quantum kernel feature map. For a particular subclass of CV kernels, we are able to directly extend this notion to the kernels themselves. In all such cases we can quantify the hardness of classical simulability of the quantum kernel. We then prove kernels defined by feature maps of infinite stellar rank, such as GKP-state encodings, can be approximated arbitrarily well by kernels defined by feature maps of finite stellar rank. Finally, we simulate learning with a single-mode displaced Fock state encoding and show that (i) accuracy on our specific task (an annular data set) increases with stellar rank, (ii) for underfit models, accuracy can be improved by increasing a bandwidth hyperparameter, and (iii) for noisy data that is overfit, decreasing the bandwidth will improve generalisation but does so at the cost of effective stellar rank and thus quantum advantage.
-                </p>
-            </li>
-            </ul>
-        <section id = "Work Experience">
-            <h2>Work Experience</h2>
-            <ul>
-                <li class="hidden-description">
-                    <h3>Intern Software Developer</h3>
-                    <p class="description">Created a novel fare-based journey planner for train networks around the UK to incorporate split ticketing and 
-                        balance of cost vs time. Found cheaper journeys in 64% of top trips vs current status quo algorithms.
-                    </p>
-                </li>
-                <li class="hidden-description">
-                    <h3>Intern Software Engineer</h3>
-                     <p class="description">Worked with Linqia, based in San Francisco, on two software projects. Firstly I created a trend analysis tool
-                        to find and identify statistically significant trends from 12 months of web scraped instagram data (>2 Billion data points). And 
-                        secondly I created a twinfluencer product MVP allowing a user to swipe left or right on an influencer based on client desires
-                        and future suggestions are learnt based on past decisions.  
-                    </p>
-                </li>
-                <li class="hidden-description">
-                    <h3>Winter Research Project Scholar</h3>
-                    <p class="description">Lead researcher working with Dr Mahdi Abolghasemi on novel research applying graph neural networks and 
-                        lightGBM ML models to hierarchical time series data.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Casual Academic UQ</h3>
-                    <p class="description">Tutor for SCIE1200 - Introduction to Science Research, MATH1052 - Calculus and Linear Algebra I, 
-                        PHYS2041 - Quantum Mechanics I, MATH1051 - , PHYS1001 - </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Growth Consultant</h3>
-                    <p class="description">Part of a team of student consultants in post-covid tourism growth for Practera Consulting.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Ventures Discovery Facilitator</h3>
-                    <p class="description">Facilitator for workshops for high school students focusing on 
-                        entrepreneurship, innovation, design thinking and problem solving.</p>
-                </li>
-                 
-                <!-- Add more job items as needed -->
-            </ul>
+        <!-- About -->
+        <section id="about" class="section section-about reveal">
+            <div class="section-inner two-col">
+                <div class="col-label">
+                    <span class="label-tag">01 — About</span>
+                </div>
+                <div class="col-content">
+                    <h2 class="section-heading">Physics at the intersection of quantum technology and human impact.</h2>
+                    <p class="body-text">I'm a quantum physicist and Cambridge MASt student passionate about ensuring that quantum technologies are developed for the betterment of human lives. I graduated as <strong>Valedictorian of Science</strong> from the University of Queensland with a GPA of 6.93/7.00 and first-class honours in Physics, having spent time on exchange along the Norwegian coastline at the University of Bergen.</p>
+                    <p class="body-text">My research sits at the intersection of quantum computing and machine learning — specifically continuous-variable quantum kernels and quantum algorithms for causal inference. In parallel, I've always been drawn to entrepreneurship and leadership, competing in startup pitching competitions, mentoring students, and building software products that solve real problems.</p>
+                    <p class="body-text">In October 2025, I was awarded the prestigious <strong>Cambridge Australia Allen Masters Award</strong> — a £32,000 scholarship granted to a single Australian student annually — to pursue a Master of Advanced Study in Physics at Cambridge. I am due to begin a full-time quantitative trading role at <strong>IMC Sydney</strong> in November 2026.</p>
 
-        <section id = "Leadership & Entrepreneurship" class="animated-slide-in">  
-            <h2>Leadership & Entrepreneurship</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>2nd Place at Weekend of Startups 2021</h3>
-                     <p class="description">Won a 2nd place finish at the 2021 Weekend of Startups pitching Mindy's World, a gamified drug and alcohol education scheme to help 
-                        prevent underage deaths from substance abuse. Recieved offers for > $3000 at Brisbane Schools.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Best Pitch at Weekend of Startups 2022</h3>
-                     <p class="description">Won Best Pitch at 2022 Weekend of Startups with Mable, an online marketplace-like platform for disabled mothers to share
-                        solutions to their everyday disruptions. Options for groups, communication and forums alongside a section for 2nd hand goods transfer was available. Recieved strong support from the 
-                        disabled community.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>2nd Place at Liveris Academy innovation project pitch night</h3>
-                     <p class="description">Awarded for the Gladstone innovation project where we pitched a platform connecting workers in Gladstone
-                        to upskilling programs in more sustainable areas. We found through numerous (20+) interviews with workers in Gladstone that non-existent work
-                        mobility was the greatest opposition to a sustainable energy transition.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Science Leader</h3>
-                     <p class="description">Volunteer leadership position where I have run orientation events and helped organise 
-                        supporting activities for new students in the science community. 
-                     </p>
-                </li>                
-                 <li class="hidden-description">
-                    <h3>Academic Prefect</h3>
-                     <p class="description">High school prefect as lead of the Academic Committee, creating 100s of resources for our cohort
-                        on an open database in collaboration with 7+ other Brisbane based schools. Ran maths and physics seminars for 250+ fellow year 12 students 
-                        explaining key concepts and running through past exam problems. 
-                     </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
+                    <div class="pills">
+                        <span class="pill">Quantum Machine Learning</span>
+                        <span class="pill">Causal Inference</span>
+                        <span class="pill">Continuous Variable QC</span>
+                        <span class="pill">Graph Neural Networks</span>
+                        <span class="pill">Python · PyTorch · Qiskit</span>
+                        <span class="pill">MATLAB · C++</span>
+                        <span class="pill">Norwegian (A2–B1)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id = "Volunteering">
-            <h2>Volunteering</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>Junior Physics Odyssey</h3>
-                     <p class="description">Lead student organiser for last 5 years in the year 10 extracurricular physics camp run by UQ. Camp involves running workshops, labs,
-                        managing 120+ students and engaging through fun activities.
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Young Achievers Mentor</h3>
-                     <p class="description">Volunteering by facilitating week long camps with a group of 15 students experiencing financial 
-                        hardship during year 11-12 and engaging in monthly phone calls to reconnect and ensure they are on the right track. Acted as a
-                        long lasting and impactful mentor to a large number of students. 
-                    </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Vice Chancellor Scholar Enrichment Program Organiser</h3>
-                     <p class="description">Ran and ideated a large number of enrichment and social activities for the Vice Chancellor scholarship enrichment program. 
-                        As the student facing representative, I ran a dodgeball, badminton and various lunches to allow the scholars to meet and network with each other. 
-                     </p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Student Society Executive positions</h3>
-                     <p class="description">Treasurer for Girl Up, First Year Officer for SASS, general executive for SOFA, PAIN and SASS. Each role tested my 
-                        people skills and allowed me to run events from barbeques, to paint and sips and many in between. 
-                     </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
-        <section id = "Education">
-            <h2>Education</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>Bachelor of Advanced Science (Honours)    The University of Queensland </h3>
-                     <ul class="description">
-                        <li><strong>Time Period:</strong> February 2021 - Present</li>
-                        <li><strong>Specialization:</strong> Physics</li>
-                        <li><strong>Awards:</strong>
-                            <ul>
-                                <li>Dean's Commendation for Academic Excellence:
-                                    <ul>
-                                        <li>2021 Semester 1 & 2</li>
-                                        <li>2022 Semester 1 & 2</li>
-                                        <li>2023 Semester 2</li>
-                                    </ul>
-                                </li>
-                            </ul>
+        <!-- Research / Publications -->
+        <section id="research" class="section section-dark reveal">
+            <div class="section-inner">
+                <div class="section-header-row">
+                    <span class="label-tag label-light">02 — Research</span>
+                    <h2 class="section-heading light">Publications & Research Experience</h2>
+                </div>
+
+                <div class="pub-list">
+                    <div class="pub-item">
+                        <span class="pub-venue">Quantum, 2025</span>
+                        <h3 class="pub-title"><a href="https://arxiv.org/abs/2401.05647" target="_blank">Quantum Algorithms for Causal Estimands</a></h3>
+                        <p class="pub-authors">Goel, R., Myers, C. R., Shrapnel, S.</p>
+                        <p class="pub-abstract">We designed 14 novel quantum algorithms for causal inference, inheriting computational advantage from matrix inversion subroutines — demonstrating a rigorous quantum speedup for a broad class of causal estimation problems.</p>
+                    </div>
+                    <div class="pub-item">
+                        <span class="pub-venue">Quantum, 2024</span>
+                        <h3 class="pub-title"><a href="https://quantum-journal.org/papers/q-2024-12-17-1570/" target="_blank">Quantum Kernel Machine Learning With Continuous Variables</a></h3>
+                        <p class="pub-authors">Henderson, L., Goel, R., Shrapnel, S.</p>
+                        <p class="pub-abstract">We derived a general closed-form solution for all continuous-variable quantum kernels, showing every such kernel decomposes as a product of Gaussian and algebraic terms. We quantified quantum–classical separation via a hierarchical "stellar rank" framework and demonstrated that GKP-state encodings can be approximated by finite-rank kernels to arbitrary precision.</p>
+                    </div>
+                </div>
+
+                <div class="research-roles">
+                    <div class="research-role reveal">
+                        <div class="role-meta">
+                            <span class="role-org">Hitachi Labs & Cavendish Laboratory, Cambridge</span>
+                            <span class="role-date">Oct 2025 – Present</span>
+                        </div>
+                        <h4 class="role-title">Quantum Simulation</h4>
+                        <p class="body-text">Working with David Arvidsson-Shukur on classical simulation methods for quantum circuits to probe the boundary between quantum and classical computation. Designed two open-source Python packages — <a href="https://pypi.org/project/kd-simulator/" target="_blank">KD_Simulator</a> and <a href="https://pypi.org/project/wigner-simulator/" target="_blank">Wigner_Simulator</a> — and demonstrated computationally that Kirkwood-Dirac and Wigner negativity are necessary conditions for quantum advantage.</p>
+                        <div class="role-tags"><span class="role-tag">Quantum Simulation</span><span class="role-tag">Python</span><span class="role-tag">Open Source</span></div>
+                    </div>
+                    <div class="research-role reveal">
+                        <div class="role-meta">
+                            <span class="role-org">EQUS, University of Queensland</span>
+                            <span class="role-date">Jun 2023 – Oct 2025</span>
+                        </div>
+                        <h4 class="role-title">Quantum Machine Learning</h4>
+                        <p class="body-text">Conducted research on continuous-variable quantum kernel methods and quantum causal inference under the supervision of Sally Shrapnel. Co-authored two peer-reviewed publications and presented work at major international conferences including QPL (Buenos Aires), Qalypso (Malta), TQC (Okinawa), AIP-ANZOP, and Teach @ the Beach.</p>
+                        <div class="role-tags"><span class="role-tag">Quantum Kernels</span><span class="role-tag">Causal Inference</span><span class="role-tag">QPL · TQC · Qalypso</span></div>
+                    </div>
+                    <div class="research-role reveal">
+                        <div class="role-meta">
+                            <span class="role-org">University of Queensland Winter Research Program</span>
+                            <span class="role-date">Jun – Dec 2023</span>
+                        </div>
+                        <h4 class="role-title">Hierarchical Time Series Forecasting</h4>
+                        <p class="body-text">Lead researcher with Dr Mahdi Abolghasemi applying graph neural networks and gradient boosting to hierarchical time series. Developed a custom MPNN–LSTM model to forecast 28 days of Walmart stock data across 3,000+ US stores, matching state-of-the-art LightGBM benchmarks.</p>
+                        <div class="role-tags"><span class="role-tag">Graph Neural Networks</span><span class="role-tag">LSTM</span><span class="role-tag">LightGBM</span></div>
+                    </div>
+                    <div class="research-role reveal">
+                        <div class="role-meta">
+                            <span class="role-org">University of Queensland Summer Research Program</span>
+                            <span class="role-date">Dec 2021 – Feb 2022</span>
+                        </div>
+                        <h4 class="role-title">Bose–Einstein Condensates</h4>
+                        <p class="body-text">Investigated polar-core spin vortices in Bose–Einstein condensates via numerical simulation in MATLAB under the supervision of Lewis Williamson.</p>
+                        <div class="role-tags"><span class="role-tag">MATLAB</span><span class="role-tag">Condensed Matter</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="section section-experience reveal">
+            <div class="section-inner">
+                <div class="section-header-row">
+                    <span class="label-tag">03 — Experience</span>
+                    <h2 class="section-heading">Industry, Teaching & Entrepreneurship</h2>
+                </div>
+
+                <div class="exp-grid">
+                    <div class="exp-card reveal">
+                        <div class="exp-card-header">
+                            <div>
+                                <span class="exp-company">Linqia · San Francisco</span>
+                                <h4 class="exp-title">Software Engineering Intern</h4>
+                            </div>
+                            <span class="exp-date">Jan–Feb 2023</span>
+                        </div>
+                        <p class="body-text">Built a scalable trend-analysis pipeline identifying statistically significant patterns from over 2 billion web-scraped Instagram data points across 12 months. Led end-to-end development of <em>TwinFluencer</em> — a Tinder-style ML-driven influencer discovery MVP — contributing an estimated $1M in projected value to the business.</p>
+                    </div>
+                    <div class="exp-card reveal">
+                        <div class="exp-card-header">
+                            <div>
+                                <span class="exp-company">SilverRail · Brisbane</span>
+                                <h4 class="exp-title">Software Engineering Intern</h4>
+                            </div>
+                            <span class="exp-date">Nov 2022–Jan 2023</span>
+                        </div>
+                        <p class="body-text">Developed a fare-aware journey planner for European rail networks incorporating split-ticketing and cost–time optimisation algorithms. The system identified cheaper routes for <strong>64% of journeys</strong> compared to the previously deployed baseline.</p>
+                    </div>
+                    <div class="exp-card reveal">
+                        <div class="exp-card-header">
+                            <div>
+                                <span class="exp-company">University of Queensland</span>
+                                <h4 class="exp-title">Casual Academic (Tutor)</h4>
+                            </div>
+                            <span class="exp-date">Jun 2022–Present</span>
+                        </div>
+                        <p class="body-text">Tutored undergraduate courses spanning physics, mathematics, and data science — including Quantum Mechanics I, Calculus & Linear Algebra, and Introduction to Science Research. Maintained a mean student rating of <strong>4.92 / 5.00</strong>.</p>
+                    </div>
+                    <div class="exp-card reveal">
+                        <div class="exp-card-header">
+                            <div>
+                                <span class="exp-company">IMC Trading · Sydney</span>
+                                <h4 class="exp-title">Quantitative Trader (Incoming)</h4>
+                            </div>
+                            <span class="exp-date">Nov 2026</span>
+                        </div>
+                        <p class="body-text">Full-time quantitative trading position beginning November 2026 at one of the world's leading proprietary trading firms.</p>
+                    </div>
+                </div>
+
+                <div class="startup-section reveal">
+                    <h3 class="sub-heading">Entrepreneurship & Innovation</h3>
+                    <div class="startup-list">
+                        <div class="startup-item">
+                            <span class="startup-award">🥇 1st Place</span>
+                            <div>
+                                <strong>Liveris Academy QLD Commitment Challenge</strong> <span class="startup-year">2024</span>
+                            </div>
+                        </div>
+                        <div class="startup-item">
+                            <span class="startup-award">🏆 Best Pitch</span>
+                            <div>
+                                <strong>Weekend of Startups</strong> <span class="startup-year">2022</span>
+                                <p class="startup-desc">Pitched <em>Mable</em> — an online marketplace for disabled mothers to share solutions and access community support. Received strong backing from the disability community.</p>
+                            </div>
+                        </div>
+                        <div class="startup-item">
+                            <span class="startup-award">🥈 2nd Place</span>
+                            <div>
+                                <strong>Weekend of Startups (EdTech)</strong> <span class="startup-year">2021</span>
+                                <p class="startup-desc">Pitched <em>Mindy's World</em> — a gamified drug and alcohol education platform targeting underage substance abuse prevention. Received expressions of interest worth $3,000+ from Brisbane schools.</p>
+                            </div>
+                        </div>
+                        <div class="startup-item">
+                            <span class="startup-award">🥈 2nd Place</span>
+                            <div>
+                                <strong>Liveris Academy Innovation Project</strong> <span class="startup-year">2021</span>
+                                <p class="startup-desc">Pitched a platform connecting Gladstone workers to sustainable upskilling programs. Found through 20+ worker interviews that non-existent work mobility was the primary barrier to energy transition.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Awards -->
+        <section id="awards" class="section section-awards reveal">
+            <div class="section-inner two-col-awards">
+                <div>
+                    <span class="label-tag">04 — Education</span>
+                    <h2 class="section-heading">Academic Background</h2>
+
+                    <div class="edu-item">
+                        <div class="edu-meta">
+                            <span class="edu-degree">Master of Advanced Study — Physics</span>
+                            <span class="edu-date">2025–2026</span>
+                        </div>
+                        <span class="edu-school">University of Cambridge</span>
+                        <p class="edu-note">Supported by the Cambridge Australia Allen Masters Award (£32,000) — awarded to a single Australian student per year for academic excellence and leadership potential.</p>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-meta">
+                            <span class="edu-degree">Bachelor of Advanced Science (Honours) — Physics</span>
+                            <span class="edu-date">2021–2025</span>
+                        </div>
+                        <span class="edu-school">University of Queensland</span>
+                        <p class="edu-note">GPA 6.93 / 7.00 · WAM 95.19% · Valedictorian of Science · Top-ranked student in Physics · First Class Honours · 8× Dean's Commendation for Academic Excellence · Exchange at University of Bergen (2023)</p>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-meta">
+                            <span class="edu-degree">Secondary Education</span>
+                            <span class="edu-date">Graduated 2020</span>
+                        </div>
+                        <span class="edu-school">Brisbane Grammar School</span>
+                        <p class="edu-note">ATAR 99.90 — top 37 of 49,651 students in Queensland. Dux of Economics. Academic Prefect.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="label-tag">05 — Awards</span>
+                    <h2 class="section-heading">Recognition</h2>
+
+                    <ul class="award-list">
+                        <li class="award-item">
+                            <span class="award-year">2025</span>
+                            <div>
+                                <strong>Cambridge Australia Allen Masters Award</strong>
+                                <p>£32,000 scholarship — single recipient annually from Australia.</p>
+                            </div>
                         </li>
-                        <li><strong>GPA:</strong> 6.90/7.00</li>
-                        <li><strong>Mean Percentage:</strong> 94.29%</li>
-                    </ul>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Secondary Education</h3>
-                    <ul class="description">
-                        <li><strong>Graduated:</strong> November 2020</li>
-                        <li><strong>School:</strong> Brisbane Grammar School</li>
-                        <li><strong>Awards:</strong>
-                            <ul>
-                                <li>
-                                    General Merit (2016-2020)
-                                </li>
-                                <li>
-                                    Dux of Economics (2020)
-                                </li>
-                                <li>
-                                    Academic Prefect (2020)
-                                </li>
-                            </ul>
+                        <li class="award-item">
+                            <span class="award-year">2025</span>
+                            <div>
+                                <strong>Valedictorian of Science, UQ</strong>
+                                <p>Awarded to the top graduating student in the UQ Science faculty.</p>
+                            </div>
                         </li>
-                        <li><strong>ATAR:</strong> 99.90 (top 37 in State)</li>
-                        <li><strong>Subjects:</strong> Maths Methods, Specialist Maths, English, Economics, Drama, Physics</li>
+                        <li class="award-item">
+                            <span class="award-year">2021–25</span>
+                            <div>
+                                <strong>Vice-Chancellor Scholar</strong>
+                                <p>Full undergraduate scholarship ($60,000 AUD) for ATAR ≥ 99.90.</p>
+                            </div>
+                        </li>
+                        <li class="award-item">
+                            <span class="award-year">2021–25</span>
+                            <div>
+                                <strong>Liveris Academy Undergraduate Scholar</strong>
+                                <p>Highly competitive leadership & innovation scholarship ($70,000 AUD) — 5 students selected per year.</p>
+                            </div>
+                        </li>
+                        <li class="award-item">
+                            <span class="award-year">2023</span>
+                            <div>
+                                <strong>UQ Employability Award</strong>
+                                <p>Recognising outstanding contribution through volunteering, work experience and professional development.</p>
+                            </div>
+                        </li>
+                        <li class="award-item">
+                            <span class="award-year">2020</span>
+                            <div>
+                                <strong>QCAA Distinguished Academic Achiever</strong>
+                                <p>Top 37 graduates in the state of Queensland across all subjects.</p>
+                            </div>
+                        </li>
+                        <li class="award-item">
+                            <span class="award-year">2020</span>
+                            <div>
+                                <strong>ADF Long Tan Youth Leadership Award</strong>
+                                <p>Recognising outstanding leadership and community impact.</p>
+                            </div>
+                        </li>
                     </ul>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>
-        <section id = "Awards">
-            <h2>Awards</h2>
-            <ul>
-                 <li class="hidden-description">
-                    <h3>UQ Employability Award</h3>
-                     <p class="description">Awarded to students demonstrating strong employability skills through ranges of volunteering, work experience and development activities</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Top Student in PHYS2055, 2nd in PHYS2020</h3>
-                     <p class="description">Awarded for having the highest percentage in Sem 1 2022 in these courses</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Deans Commendation For Academic Excellence</h3>
-                     <p class="description">Awarded for my semester GPA in Sem 1 & 2 2021, Sem 1 & 2 2022, and Sem 2 2023</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Vice Chancellor Scholar</h3>
-                     <p class="description">Awarded to top students who recive an ATAR of greater than 99.90 in high school</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>Liveris Academy Undergraduate Scholar</h3>
-                     <p class="description">Awarded to 5 students each year based on academic excellence and pursuit of leadership and innovation</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>QCAA Distinguished Academic Achiever</h3>
-                    <p class="description">Awared to the top 37 students in the state of QLD for 2020 Graduates based on all subjects final unscaled scores.</p>
-                </li>
-                 <li class="hidden-description">
-                    <h3>ADF Long Tan Youth Leadership and Teamwork Award</h3>
-                    <p class="description">Recognising students who demonstrate leadership and teamwork in their community. Awarded to me for my 
-                        consistent impact through the academic committee and as my prefect role. 
-                    </p>
-                </li>
-                <!-- Add more job items as needed -->
-            </ul>   
-        <section id="Languages">
-            <h2>Languages</h2>
-            <ul class="language-list">
-                <li>
-                    <h3>English (Native)</h3>
-                    <div class="progress-bar" style="--progress: 100%;"></div>
-                </li>
-                <li>
-                    <h3>Hindi (Native Spoken and Listened)</h3>
-                    <div class="progress-bar" style="--progress: 60%;"></div>
-                </li>
-                <li>
-                    <h3>Norwegian (A2-B1 Level)</h3>
-                    <div class="progress-bar" style="--progress: 40%;"></div>
-                </li>
-            </ul>
-        
+                </div>
+            </div>
+        </section>
+
+        <!-- Volunteering & Leadership -->
+        <section class="section section-dark reveal">
+            <div class="section-inner">
+                <div class="section-header-row">
+                    <span class="label-tag label-light">06 — Community</span>
+                    <h2 class="section-heading light">Volunteering & Leadership</h2>
+                </div>
+                <div class="vol-grid">
+                    <div class="vol-item reveal">
+                        <h4>Junior Physics Odyssey</h4>
+                        <span class="vol-date">2018–Present</span>
+                        <p>Lead student organiser for UQ's Year 10 extracurricular physics camp. Managing 120+ students across workshops, labs, and activities for five consecutive years.</p>
+                    </div>
+                    <div class="vol-item reveal">
+                        <h4>Young Achiever Mentor</h4>
+                        <span class="vol-date">2021–2023</span>
+                        <p>Facilitated week-long camps for students experiencing financial hardship in Years 11–12, and conducted monthly check-in calls to provide ongoing mentorship and guidance.</p>
+                    </div>
+                    <div class="vol-item reveal">
+                        <h4>Academic Prefect</h4>
+                        <span class="vol-date">2019–2020</span>
+                        <p>Led the Academic Committee at Brisbane Grammar School, building a shared database of hundreds of study resources in collaboration with 7+ schools. Ran maths and physics seminars for 250+ Year 12 students.</p>
+                    </div>
+                    <div class="vol-item reveal">
+                        <h4>ESL Refugee Tutor</h4>
+                        <span class="vol-date">2018–2020</span>
+                        <p>Volunteered as an English tutor for refugees at The Exchange Kelvin Grove, helping newly arrived community members build language skills and confidence.</p>
+                    </div>
+                    <div class="vol-item reveal">
+                        <h4>VC Scholar Enrichment Organiser</h4>
+                        <span class="vol-date">2022–2025</span>
+                        <p>Planned and ran social and enrichment events for the Vice Chancellor's Scholar cohort — from dodgeball and badminton tournaments to networking lunches.</p>
+                    </div>
+                    <div class="vol-item reveal">
+                        <h4>University Society Executives</h4>
+                        <span class="vol-date">2022–2023</span>
+                        <p>Served on the executive committees of SASS, SOFA, PAIN, and Girl Up — organising events ranging from barbeques to paint-and-sip evenings, and acting as Treasurer for Girl Up.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-
-
-    <footer>
-        <p>Email: rishigoel25@gmail.com</p>
-        <p>Phone: +61 432 861 001</p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-name">Rishi Goel</span>
+                <span class="footer-sub">Cambridge · Quantum Physics · 2026</span>
+            </div>
+            <div class="footer-right">
+                <a href="mailto:rishigoel25@gmail.com">rishigoel25@gmail.com</a>
+                <a href="https://rishigoel2003.github.io/" target="_blank">rishigoel2003.github.io</a>
+                <a href="https://scholar.google.com/citations?user=gpc0_PQAAAAJ" target="_blank">Google Scholar</a>
+            </div>
+        </div>
     </footer>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sections = document.querySelectorAll('section'); // Corrected selector to target all sections
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('animated-slide-in')) {
-                    entry.target.classList.add('animated-slide-in'); // Adding the correct class to animate
-                }
-            });
-        }, { threshold: 0 });
-
-        sections.forEach(section => {
-            observer.observe(section);
+    // Scroll-reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Sticky nav
+    const nav = document.getElementById('top-nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 80);
     });
 
-
-    document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('h3').forEach(h3 => {
-                h3.addEventListener('click', function() {
-                    const description = this.nextElementSibling;
-                    description.classList.toggle('visible');
-                    if (description.classList.contains('visible')) {
-                        description.style.maxHeight = description.scrollHeight + "px";
-                        this.parentElement.classList.remove('hidden-description');
-                    } else {
-                        description.style.maxHeight = 0;
-                        this.parentElement.classList.add('hidden-description');
-                    }
-                });
-            });
+    // Copy email
+    function copyEmail(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText('rishigoel25@gmail.com').then(() => {
+            const toast = document.getElementById('email-toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         });
-
-    document.getElementById('hobbies-link').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default behavior of the link
-        
-        // Get the header element
-        var header = document.getElementById('main-header');
-        
-        // Change CSS properties to shrink and move the header
-        header.style.transition = 'transform 0.5s ease';
-        header.style.transform = 'scale(0.3)';
-        header.style.top = '-278px';
-        header.style.left = '-505px';
-
-        setTimeout(function() {
-            // Redirect to hobbies.html
-            window.location.href = 'Fun.html';
-        }, 500);
-    });
-
-    function copyEmail() {
-        var email = "rishigoel25@gmail.com"; // Your email address
-        navigator.clipboard.writeText(email)
-        .then(function() {
-                document.getElementById("copy-email-text").innerText = "Email Address Copied!";
-                setTimeout(function() {
-                    document.getElementById("copy-email-text").innerText = "";
-                }, 1000); // Reset text after 2 seconds
-            })
-            .catch(function() {
-                alert("Failed to copy email address.");
-            });
     }
     </script>
 </body>
 </html>
-
-
