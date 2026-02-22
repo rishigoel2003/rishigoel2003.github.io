@@ -290,6 +290,35 @@
             padding: 0 64px;
             position: relative;
         }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: white;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .slider-btn:hover {
+            background: rgba(255,255,255,0.22);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-btn:active {
+            transform: translateY(-50%) scale(0.96);
+        }
+        .slider-btn-prev { left: 10px; }
+        .slider-btn-next { right: 10px; }
         .slider {
             display: flex;
             aspect-ratio: 16/9;
@@ -307,20 +336,7 @@
             scroll-snap-align: start;
             object-fit: cover;
         }
-        .slider-nav {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .slider-nav a {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transition: background 0.25s, transform 0.25s;
-        }
-        .slider-nav a:hover { background: var(--gold-light); transform: scale(1.3); }
+
 
         /* ── Projects Section ── */
         .section-projects { background: var(--paper-warm); }
@@ -414,6 +430,9 @@
             .adventure-block { grid-template-columns: 1fr; gap: 32px; }
             .projects-grid { grid-template-columns: 1fr; }
             .footer-right { align-items: flex-start; }
+            .slider-btn { width: 36px; height: 36px; }
+            .slider-btn-prev { left: 2px; }
+            .slider-btn-next { right: 2px; }
         }
     </style>
 </head>
@@ -488,22 +507,23 @@
         <!-- Norway Slider -->
         <div class="slider-section">
             <div class="slider-wrapper">
-                <div class="slider">
-                    <img id="slide-1" src="Norway1.jpg" alt="Norway 1">
+                <!-- Prev button -->
+                <button class="slider-btn slider-btn-prev" id="slider-prev" aria-label="Previous photo">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <!-- Next button -->
+                <button class="slider-btn slider-btn-next" id="slider-next" aria-label="Next photo">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+                <div class="slider" id="main-slider">
+                    <img id="slide-1" src="Norway6.png" alt="Norway 1">
                     <img id="slide-2" src="Norway2.jpg" alt="Norway 2">
                     <img id="slide-3" src="Norway3.jpg" alt="Norway 3">
                     <img id="slide-4" src="Norway4.jpg" alt="Norway 4">
                     <img id="slide-5" src="Norway5.png" alt="Norway 5">
-                    <img id="slide-6" src="Norway6.png" alt="Norway 6">
+                    <img id="slide-6" src="Norway1.jpg" alt="Norway 6">
                 </div>
-                <div class="slider-nav">
-                    <a href="#slide-1"></a>
-                    <a href="#slide-2"></a>
-                    <a href="#slide-3"></a>
-                    <a href="#slide-4"></a>
-                    <a href="#slide-5"></a>
-                    <a href="#slide-6"></a>
-                </div>
+
             </div>
         </div>
 
@@ -580,6 +600,27 @@
                 setTimeout(() => toast.classList.remove('show'), 2000);
             });
         }
+
+        // Slider prev/next buttons
+        const slider = document.getElementById('main-slider');
+        const totalSlides = slider.querySelectorAll('img').length;
+
+        function getCurrentIndex() {
+            const slideWidth = slider.offsetWidth;
+            return Math.round(slider.scrollLeft / slideWidth);
+        }
+
+        document.getElementById('slider-prev').addEventListener('click', () => {
+            const idx = getCurrentIndex();
+            const prev = (idx - 1 + totalSlides) % totalSlides;
+            slider.scrollTo({ left: prev * slider.offsetWidth, behavior: 'smooth' });
+        });
+
+        document.getElementById('slider-next').addEventListener('click', () => {
+            const idx = getCurrentIndex();
+            const next = (idx + 1) % totalSlides;
+            slider.scrollTo({ left: next * slider.offsetWidth, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
