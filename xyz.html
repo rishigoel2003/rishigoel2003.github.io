@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Johanna! 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #ff9a9e;
+      --bg2: #fad0c4;
+      --bg3: #a1c4fd;
+      --bg4: #c2e9fb;
+      --text: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+      background-size: 800% 800%;
+      animation: gradientShift 15s ease infinite;
+      color: var(--text);
+      text-align: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.5rem;
+      margin-top: 40px;
+      color: #fff;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+      height: 200px;
+    }
+
+    .puzzle img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+
+    .rainbow {
+      font-size: 2rem;
+      margin: 20px 0;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday Johanna! 🎂</h1>
+
+  <div class="container">
+
+    <div class="rainbow">🌈✨🎉💖🎈💖</div>
+
+    <!-- Birthday Message -->
+    <div class="card">
+      <h2>💌 A Message For You</h2>
+      <div class="message">
+        Happy Birthday Johanna!!
+
+        I hope this year brings you so much happiness, laughter, and everything you deserve. 
+        You’re genuinely such an amazing person and I feel really lucky to know you.
+
+        Thanks for all the fun memories, the laughs, and just being you. 
+        I’m really excited for everything still to come and I hope we can make even more amazing memories together.
+
+        Have the best day ever 💖🎉
+      </div>
+    </div>
+
+    <!-- Photos -->
+    <div class="card">
+      <h2>📸 Our Memories</h2>
+      <p>Some of my favourite moments with you:</p>
+      <div class="photo-grid">
+        <img src="jo's pictures\1.jpg">
+        <img src="jo's pictures\2.jpg">
+        <img src="jo's pictures\3.jpg">
+        <img src="jo's pictures\4.jpg">
+        <img src="jo's pictures\5.jpg">
+        <img src="jo's pictures\6.jpg">
+      </div>
+    </div>
+
+    <!-- Puzzle Image -->
+    <div class="card">
+      <h2>🧩 Your Final Puzzle!</h2>
+      <p>😉</p>
+      <div class="puzzle">
+        <img src="https://via.placeholder.com/400x300?text=Your+Puzzle+Image">
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
