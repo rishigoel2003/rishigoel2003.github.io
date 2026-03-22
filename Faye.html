@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faye's Secret Laugh Stash 🤫</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #FFD93D;
+      --pink: #FF6B9D;
+      --purple: #C77DFF;
+      --blue: #4CC9F0;
+      --green: #06D6A0;
+      --orange: #FF9F1C;
+      --bg: #0d0d1a;
+      --card: #1a1a2e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── PASSWORD SCREEN ─── */
+    #lock-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      gap: 20px;
+    }
+
+    .lock-emoji {
+      font-size: 5rem;
+      animation: wobble 2s ease-in-out infinite;
+    }
+
+    @keyframes wobble {
+      0%,100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .lock-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .lock-subtitle {
+      color: #aaa;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .password-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    #pw-input {
+      background: #1a1a2e;
+      border: 3px solid var(--purple);
+      border-radius: 50px;
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      padding: 14px 30px;
+      outline: none;
+      text-align: center;
+      width: 260px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    #pw-input:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 20px rgba(255, 217, 61, 0.3);
+    }
+
+    #pw-input.wrong {
+      border-color: var(--pink);
+      box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+
+    #enter-btn {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      padding: 14px 40px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
+    }
+
+    #enter-btn:hover {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 30px rgba(199, 125, 255, 0.6);
+    }
+
+    #wrong-msg {
+      color: var(--pink);
+      font-weight: 800;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    #wrong-msg.show { opacity: 1; }
+
+    /* ─── MAIN SITE ─── */
+    #main-site {
+      display: none;
+    }
+
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* Stars background */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--d) ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%,100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.4); }
+    }
+
+    /* Header */
+    .site-header {
+      position: relative;
+      text-align: center;
+      padding: 60px 20px 40px;
+      z-index: 1;
+    }
+
+    .site-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--pink) 40%, var(--purple) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(255,217,61,0.2));
+    }
+
+    .site-header p {
+      color: #bbb;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    /* ─── PLACEHOLDER CARDS ─── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title span {
+      display: inline-block;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Photo grid */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .photo-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1;
+      background: var(--card);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .photo-card:hover {
+      transform: scale(1.04) rotate(-1deg);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .photo-card:nth-child(2n):hover { transform: scale(1.04) rotate(1deg); }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Placeholder photo cards (before real photos added) */
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 15px;
+      line-height: 1.4;
+    }
+
+    .photo-placeholder .big-emoji {
+      font-size: 3rem;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Colour each card differently */
+    .photo-card:nth-child(6n+1) { border-color: var(--yellow); }
+    .photo-card:nth-child(6n+1) .photo-placeholder { background: linear-gradient(135deg, #1a1a00, #2a2500); color: var(--yellow); }
+    .photo-card:nth-child(6n+2) { border-color: var(--pink); }
+    .photo-card:nth-child(6n+2) .photo-placeholder { background: linear-gradient(135deg, #1a0012, #2a0020); color: var(--pink); }
+    .photo-card:nth-child(6n+3) { border-color: var(--purple); }
+    .photo-card:nth-child(6n+3) .photo-placeholder { background: linear-gradient(135deg, #0d0020, #180033); color: var(--purple); }
+    .photo-card:nth-child(6n+4) { border-color: var(--blue); }
+    .photo-card:nth-child(6n+4) .photo-placeholder { background: linear-gradient(135deg, #00121a, #001e2a); color: var(--blue); }
+    .photo-card:nth-child(6n+5) { border-color: var(--green); }
+    .photo-card:nth-child(6n+5) .photo-placeholder { background: linear-gradient(135deg, #001a13, #002a1e); color: var(--green); }
+    .photo-card:nth-child(6n+6) { border-color: var(--orange); }
+    .photo-card:nth-child(6n+6) .photo-placeholder { background: linear-gradient(135deg, #1a0a00, #2a1500); color: var(--orange); }
+
+    .caption-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: white;
+      transform: translateY(60px);
+      transition: transform 0.3s;
+    }
+
+    .photo-card:hover .caption-tag {
+      transform: translateY(0);
+    }
+
+    /* Video section */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .video-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(76, 201, 240, 0.2);
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #00121a, #001e2a);
+      color: var(--blue);
+      font-weight: 800;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(76,201,240,0.05), transparent);
+    }
+
+    .video-placeholder .play-btn {
+      font-size: 3.5rem;
+      transition: transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .video-card:hover .play-btn {
+      transform: scale(1.2);
+    }
+
+    .video-label {
+      padding: 15px 18px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+
+    .video-label small {
+      display: block;
+      color: #888;
+      font-weight: 600;
+      margin-top: 4px;
+      font-size: 0.8rem;
+    }
+
+    /* How-to banner */
+    .how-to-box {
+      background: linear-gradient(135deg, rgba(255,217,61,0.08), rgba(255,107,157,0.08));
+      border: 2px dashed var(--yellow);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      margin: 0 20px 60px;
+      max-width: 1060px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .how-to-box h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+
+    .how-to-box p {
+      color: #bbb;
+      font-weight: 600;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .how-to-box code {
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-family: monospace;
+      color: var(--pink);
+    }
+
+    /* Ticker tape */
+    .ticker-wrap {
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      padding: 12px 0;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 25s linear infinite;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .ticker span {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      color: white;
+      padding: 0 30px;
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #555;
+      font-weight: 700;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      color: var(--pink);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    #lightbox.show {
+      display: flex;
+    }
+
+    #lightbox-content {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 16px;
+      object-fit: contain;
+    }
+
+    #lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #lightbox-caption {
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── LOCK SCREEN ─── -->
+<div id="lock-screen">
+  <div class="lock-emoji">🔐</div>
+  <div class="lock-title">Faye's Secret<br>Laugh Stash</div>
+  <div class="lock-subtitle">🤫 For your eyes only</div>
+  <div class="password-wrap">
+    <input type="password" id="pw-input" placeholder="password..." autocomplete="off" />
+    <button id="enter-btn" onclick="tryPassword()">Unlock 🔓</button>
+    <div id="wrong-msg">😬 Nope! Try again, you know HIS real name...</div>
+  </div>
+</div>
+
+<!-- ─── CONFETTI CANVAS ─── -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ─── MAIN SITE ─── -->
+<div id="main-site">
+
+  <!-- Stars background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>❤️ WELCOME FAYE ❤️</span><span>💀 HALL OF SHAME 💀</span><span>🎉 FOR YOUR EYES ONLY 🎉</span><span>😭 EMBARRASSING MOMENTS 😭</span><span>🤣 PHOTOS YOU CANT SHARE 🤣</span>
+      <!-- duplicate for seamless loop -->
+      <span>❤️ WELCOME FAYE ❤️</span><span>💀 HALL OF SHAME 💀</span><span>🎉 FOR YOUR EYES ONLY 🎉</span><span>😭 EMBARRASSING MOMENTS 😭</span><span>🤣 PHOTOS YOU CANT SHARE 🤣</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <h1>A stain on my digital footprint.</h1>
+    <p>A nebulous collection of my worst photos. You're welcome ❤️❤️❤️.</p>
+  </header>
+
+  <!-- PHOTOS SECTION -->
+  <section class="section">
+    <div class="section-title" style="color: var(--yellow);">
+      <span>📸</span> Photos
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/1.jpeg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Wisdom tooth removal is grim.</div>
+      </div>
+
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/2.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Baby rishi.</div>
+      </div>
+
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/3.png" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Zoned out while partying is inopportune.</div>
+      </div> 
+
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/4.jpeg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Star!</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/5.jpeg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Why did I think taking a selfie on a plane was a good idea.</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/6.png" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Rollercoasters are scary.</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/7.png" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Long hair and pogo stick - who are you calling a virgin??</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/8.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Smol Rishi.</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/9.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Devious angle.</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/10.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">I think I should get a moustache.</div>
+      </div> 
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/11.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Who knows what I was thinking here</div>
+      </div> 
+      
+      <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/12.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Sexy librarian?</div>
+      </div> 
+       <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/13.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">Bob + Sandwich</div>
+      </div> 
+       <div class="photo-card" onclick="openLightbox(this)" data-caption="">
+        <img src="/fayes pictures/14.jpg" alt="Photo" style="width:100%; height:100%; object-fit:cover;">
+        <div class="caption-tag">The bob that started this all.</div>
+      </div> 
+ 
+    </div>
+  </section>
+
+  <!-- VIDEOS SECTION
+  <section class="section">
+    <div class="section-title" style="color: var(--blue);">
+      <span style="animation-delay:0.3s">🎬</span> The Video Evidence
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶️</div>
+          <div style="font-size:0.85rem;position:relative;z-index:1;">Drop a &lt;video&gt; tag here<br>or paste a YouTube embed</div>
+        </div>
+        <div class="video-label">
+          That time I embarrassed myself in public
+          <small>Duration: too long · Cringe level: maximum</small>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶️</div>
+          <div style="font-size:0.85rem;position:relative;z-index:1;">Drop a &lt;video&gt; tag here<br>or paste a YouTube embed</div>
+        </div>
+        <div class="video-label">
+          The incident we don't talk about
+          <small>Duration: 0:47 · Do NOT share this</small>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶️</div>
+          <div style="font-size:0.85rem;position:relative;z-index:1;">Drop a &lt;video&gt; tag here<br>or paste a YouTube embed</div>
+        </div>
+        <div class="video-label">
+          Attempting to be funny. Failing spectacularly.
+          <small>Duration: ongoing · Never ends well</small>
+        </div>
+      </div>
+
+    </div>
+  </section> -->
+
+  <!-- Bonus message -->
+  <section class="section" style="text-align:center; padding-bottom: 20px;">
+    <div style="background: linear-gradient(135deg, rgba(199,125,255,0.1), rgba(255,107,157,0.1)); border: 2px solid var(--purple); border-radius: 24px; padding: 40px 30px;">
+      <div style="font-size: 3rem; margin-bottom: 15px;">💌</div>
+      <div style="font-family:'Fredoka One',cursive; font-size: 1.6rem; color: var(--purple); margin-bottom: 12px;">Happy Birthday, Faye!</div>
+      <div style="color: #ccc; font-weight: 700; line-height: 1.8; max-width: 500px; margin: 0 auto;">
+        This website exists so you always have something to smile at. You're the best, Faye. Thanks for being you, and for letting me be me (even when it's a bit embarrassing). I really really appreciate you so much and I am so lucky to have you in Cambridge with me. I hope we stay friends forever so you can take some embarrassing pictures of me.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Made with <span>❤️</span> and zero dignity (you always say I should experience more embarrassment) &nbsp;·&nbsp; Just for Faye (seriously dont share this pls pls pls pls) &nbsp;·&nbsp; 23/03/2026
+  </footer>
+
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-content" src="" alt="" />
+  <div id="lightbox-caption"></div>
+</div>
+
+<script>
+  // Password
+  const PASSWORD = 'kaladin';
+
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryPassword();
+  });
+
+  function tryPassword() {
+    const val = document.getElementById('pw-input').value.trim().toLowerCase();
+    if (val === PASSWORD) {
+      document.getElementById('lock-screen').style.opacity = '0';
+      document.getElementById('lock-screen').style.transition = 'opacity 0.6s';
+      setTimeout(() => {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('main-site').style.display = 'block';
+        makeStars();
+        launchConfetti();
+      }, 600);
+    } else {
+      const input = document.getElementById('pw-input');
+      const msg = document.getElementById('wrong-msg');
+      input.classList.add('wrong');
+      msg.classList.add('show');
+      input.value = '';
+      setTimeout(() => {
+        input.classList.remove('wrong');
+        msg.classList.remove('show');
+      }, 1800);
+    }
+  }
+
+  // Stars
+  function makeStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      star.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%;
+        left:${Math.random()*100}%;
+        --d:${(Math.random()*3+2).toFixed(1)}s;
+        animation-delay:${(Math.random()*4).toFixed(1)}s;
+      `;
+      container.appendChild(star);
+    }
+  }
+
+  // Confetti
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colours = ['#FFD93D','#FF6B9D','#C77DFF','#4CC9F0','#06D6A0','#FF9F1C'];
+    const pieces = Array.from({length: 180}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 10 + 5,
+      d: Math.random() * 150 + 30,
+      color: colours[Math.floor(Math.random()*colours.length)],
+      tilt: Math.random() * 10 - 10,
+      tiltAngle: 0,
+      tiltAngleIncremental: (Math.random() * 0.07 + 0.05),
+    }));
+
+    let frame = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        ctx.beginPath();
+        ctx.lineWidth = p.r / 2;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 3, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 5);
+        ctx.stroke();
+      });
+      update();
+      if (frame < 200) {
+        frame++;
+        requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function update() {
+      pieces.forEach(p => {
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(frame / p.d) + 3 + p.r / 2) / 2;
+        p.tilt = Math.sin(p.tiltAngle) * 12;
+        if (p.y > canvas.height) {
+          p.y = -20;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    draw();
+  }
+
+  // Lightbox (for when real photos are added)
+  function openLightbox(card) {
+    const img = card.querySelector('img');
+    if (!img) return; // only works once real images are added
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-content').src = img.src;
+    document.getElementById('lightbox-caption').textContent = card.getAttribute('data-caption') || '';
+    lb.classList.add('show');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('show');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  window.addEventListener('resize', () => {
+    const canvas = document.getElementById('confetti-canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
