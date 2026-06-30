@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>puzzles</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f7f6f3;
+    color: #1a1a1a;
+    font-family: 'Georgia', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+    font-weight: normal;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 3rem;
+  }
+
+  .puzzle-area {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .step {
+    display: none;
+    animation: fadein 0.5s ease;
+  }
+  .step.active { display: block; }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 1.5rem;
+  }
+
+  .puzzle-title {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .puzzle-body {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cipher-grid {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    background: #eeecea;
+    padding: 1.25rem 1.5rem;
+    border-radius: 4px;
+    line-height: 2;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+    color: #333;
+  }
+
+  .scramble-word {
+    font-family: 'Courier New', monospace;
+    font-size: 1.6rem;
+    letter-spacing: 0.25em;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+  }
+
+  .sudoku {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    gap: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .sudoku-cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    background: #eeecea;
+    color: #1a1a1a;
+  }
+
+  .sudoku-cell.given { color: #555; }
+  .sudoku-cell.empty { background: #e4e2df; color: #888; }
+
+  .sudoku-note {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  input[type="text"] {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1.5px solid #ccc;
+    background: transparent;
+    padding: 0.4rem 0;
+    width: 180px;
+    outline: none;
+    color: #1a1a1a;
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus { border-color: #888; }
+
+  button {
+    font-family: 'Georgia', serif;
+    font-size: 0.85rem;
+    background: none;
+    border: 1px solid #ccc;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    color: #555;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  button:hover { border-color: #888; color: #1a1a1a; }
+
+  .error {
+    font-size: 0.8rem;
+    color: #b35;
+    margin-top: 0.75rem;
+    min-height: 1rem;
+  }
+
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 3rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: background 0.3s;
+  }
+
+  .dot.done { background: #aaa; }
+  .dot.active { background: #1a1a1a; }
+
+  /* Card reveal */
+  #card {
+    display: none;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    animation: fadein 1.2s ease;
+  }
+
+  #card.visible { display: block; }
+
+  .card-inner {
+    border: 1px solid #e0dad4;
+    padding: 3.5rem 2.5rem;
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .card-from {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #c8a090;
+    margin-bottom: 2rem;
+  }
+
+  .card-title {
+    font-size: 2rem;
+    font-weight: normal;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .card-title em {
+    font-style: normal;
+    color: #c8786a;
+  }
+
+  .card-message {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Photo memories */
+  .card-photos {
+    margin-bottom: 2.5rem;
+  }
+
+  .photos-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #c8a090;
+    margin-bottom: 1rem;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .photo-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #eeecea;
+    border: 1px solid #e0dad4;
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-fallback {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #bbb;
+    background: #eeecea;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .card-footer {
+    font-size: 0.75rem;
+    color: #bbb;
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<h1>Happy Birthday Maddie!</h1>
+
+<div class="progress">
+  <div class="dot active" id="d0"></div>
+  <div class="dot" id="d1"></div>
+  <div class="dot" id="d2"></div>
+</div>
+
+<div class="puzzle-area">
+
+  <!-- Puzzle 1: Sudoku -->
+  <div class="step active" id="step-0">
+    <div class="step-label">puzzle one &mdash; Sudoku</div>
+    <div class="puzzle-title">Complete the Sudoku puzzle.</div>
+    <div class="puzzle-body">Fill in the grid so that every row, column, and 3x3 box contains the digits 1-9. What is the sum of the purple squares (write in letters e.g. 1 = one).</div>
+    <div class="input-row">
+      <input type="text" id="ans0" placeholder="your answer" autocomplete="off" />
+      <button onclick="check(0)">submit</button>
+    </div>
+    <div class="error" id="err0"></div>
+  </div>
+
+  <!-- Puzzle 2: Caesar cipher -->
+  <div class="step" id="step-1">
+    <div class="step-label">puzzle two &mdash; Jigsaw Puzzle</div>
+    <div class="puzzle-title">Solve the Jigsaw.</div>
+    <div class="puzzle-body">What does it say?</div>
+    <!-- <div class="cipher-grid">ELOOL&nbsp;&nbsp;PDGGLH</div> -->
+    <div class="input-row">
+      <input type="text" id="ans1" placeholder="decoded message" autocomplete="off" />
+      <button onclick="check(1)">submit</button>
+    </div>
+    <div class="error" id="err1"></div>
+  </div>
+
+  <!-- Puzzle 3: Word scramble -->
+  <div class="step" id="step-2">
+    <div class="step-label">puzzle three &mdash; Cryptics</div>
+    <div class="puzzle-title">Solve the three cryptics!</div>
+    <div class="puzzle-body">Joyful Harry with his body replaced by app.</div>
+    <div class="puzzle-body">Today is the genesis of you (8)</div>
+    <div class="puzzle-body">Hydroelectric power source backwards with another word for death is you! (6)</div>
+    <!-- <div class="scramble-word">H&nbsp;T&nbsp;R&nbsp;D&nbsp;I&nbsp;A&nbsp;Y&nbsp;B</div> -->
+    <div class="input-row">
+      <input type="text" id="ans2" placeholder="the word" autocomplete="off" />
+      <button onclick="check(2)">submit</button>
+    </div>
+    <div class="error" id="err2"></div>
+  </div>
+
+</div>
+
+<!-- Birthday card -->
+<div id="card">
+  <div class="card-inner">
+    <div class="card-from">Congrats on solving the puzzles!</div>
+    <div class="card-title">Happy birthday <br><em>Maddie!</em></div>
+    <div class="card-message">
+      You made it through the puzzles, which means<br>
+      you deserve this: a very happy birthday!! I am so so so glad to have met you in Cambridge and for you to have joined our group so naturally. You are an incredible person who always strives to improve herself and those around you. It has been such a pleasure to get to hang out with you, have breakfasts, go to london and just yap (except when I'm too focussed on crocheting lol). You are such a gem and you have made my life more joyful and meaningful just by being around. I know you will slay at whatever you choose to do and make sure to give yourself a break sometimes too and remember that you are more than enough!! You are cool, funny, brave, persistent, resilient, charming and fun. Happy Birthday Maddie and I hope we can celebrate many more together in the future.<br><br>
+      Hope today is just as good as you are.
+    </div>
+
+    <!-- Photo memories -->
+    <div class="card-photos">
+      <div class="photos-label">Here are some of my favourite moments together!</div>
+      <div class="photo-grid">
+        <div class="photo-item">
+          <img src="Maddie/photo-1.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 1</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-2.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 2</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-3.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 3</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-4.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 4</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-5.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 5</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-6.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 6</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-7.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 7</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-8.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 8</div>
+        </div>
+        <div class="photo-item">
+          <img src="Maddie/photo-9.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="photo-fallback">photo 9</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">with love x</div>
+  </div>
+</div>
+
+<script>
+  const answers = [
+    ["twenty five", "twenty-five", "Twenty five", "Twenty-Five", ""],
+    ["Love you <3","Love You <3","love you <3", ""],
+    ["Happy Birthday Maddie","Happy birthday Maddie","happy birthday maddie",""]
+  ];
+
+  function normalise(s) {
+    return s.toLowerCase().replace(/[^a-z]/g, "").trim();
+  }
+
+  let current = 0;
+
+  document.querySelectorAll("input").forEach(inp => {
+    inp.addEventListener("keydown", e => {
+      if (e.key === "Enter") check(current);
+    });
+  });
+
+  function check(idx) {
+    const raw = document.getElementById("ans" + idx).value;
+    const val = normalise(raw);
+    const correct = answers[idx].some(a => normalise(a) === val);
+
+    if (!correct) {
+      document.getElementById("err" + idx).textContent = "not quite — try again.";
+      document.getElementById("ans" + idx).focus();
+      return;
+    }
+
+    document.getElementById("err" + idx).textContent = "";
+    document.getElementById("d" + idx).classList.remove("active");
+    document.getElementById("d" + idx).classList.add("done");
+    current++;
+
+    if (current >= 3) {
+      document.querySelector(".puzzle-area").style.display = "none";
+      document.querySelector(".progress").style.display = "none";
+      document.getElementById("card").classList.add("visible");
+    } else {
+      document.getElementById("step-" + (idx)).classList.remove("active");
+      document.getElementById("step-" + current).classList.add("active");
+      document.getElementById("d" + current).classList.add("active");
+      document.getElementById("ans" + current).focus();
+    }
+  }
+</script>
+</body>
+</html>
