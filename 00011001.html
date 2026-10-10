@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Case File</title>
+<style>
+  :root {
+    --bg: #1b1714;          /* dark walnut */
+    --paper: #e9dfc8;       /* aged paper */
+    --ink: #2a2118;
+    --accent: #8c2f2b;      /* dried blood red */
+    --muted: #a99c82;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--paper);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  main {
+    width: 100%;
+    max-width: 560px;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 40px 36px 48px;
+    border-left: 6px solid var(--accent);
+    box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  }
+  h1 { margin: 0 0 12px; font-size: 2rem; letter-spacing: .01em; }
+  p { margin: 0 0 24px; }
+  .download {
+    display: inline-block;
+    padding: 12px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 36px;
+  }
+  .download:hover, .download:focus-visible { background: var(--accent); outline: none; }
+  label { display: block; margin-bottom: 8px; font-style: italic; }
+  .row { display: flex; gap: 8px; }
+  input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    font: inherit;
+    color: var(--ink);
+    background: #f6efdd;
+    border: 1px solid var(--muted);
+  }
+  input[type="text"]:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button {
+    padding: 11px 18px;
+    font: inherit;
+    background: var(--accent);
+    color: var(--paper);
+    border: 0;
+    cursor: pointer;
+  }
+  button:hover { filter: brightness(1.12); }
+
+  /* Secret message. It is added to the page only after a correct guess.
+     Same colour as the paper, so it can only be found by highlighting. */
+  #status {
+    height: 1.6em;                  /* reserved from the start so nothing shifts */
+    margin: 14px 0 0;
+    font-style: italic;
+  }
+  #status.correct { color: #2f6b3a; }
+  #status.incorrect { color: var(--accent); }
+
+  /* Fixed-size area reserved for the secret text, so the card never resizes.
+     If your message is long, increase this height. */
+  #secret-holder {
+    height: 8em;
+    margin-top: 12px;
+    overflow-y: auto;
+  }
+  #secret {
+    margin: 0;
+    color: var(--paper);            /* matches the card background = invisible */
+    user-select: text;
+  }
+  /* To make the message plainly visible instead, delete the line
+     "color: var(--paper);" above, or replace it with "color: var(--accent);" */
+</style>
+</head>
+<body>
+<main>
+  <h1>0b11001</h1>
+  <p>Who killed me!</p>
+
+  <!-- Put your zip file in the same folder as this page and make sure the name matches -->
+  <a class="download" href="evidence.zip" download>My final puzzle.</a>
+
+  <label for="guess">Hehe! First class honours to whoever figures it out!</label>
+  <div class="row">
+    <input type="text" id="guess" autocomplete="off" spellcheck="false">
+    <button type="button" id="submit">?</button>
+  </div>
+
+  <p id="status" aria-live="polite"></p>
+
+  <div id="secret-holder"></div>
+</main>
+
+<script>
+  // ---- EDIT THESE TWO THINGS ----
+  const ANSWER = "Davinci";                 // the murderer's name (case doesn't matter)
+  const SECRET_MESSAGE = "Bonus credit: how old was I when I discovered binary?";
+  // -------------------------------
+
+  const norm = s => s.trim().toLowerCase().replace(/\s+/g, " ");
+  const input = document.getElementById("guess");
+  const holder = document.getElementById("secret-holder");
+
+  const status = document.getElementById("status");
+
+  function check() {
+    if (norm(input.value) === norm(ANSWER)) {
+      status.textContent = "Correct. You figured it out! Congrats on your 1st! Im sure your mother will be proud.";
+      status.className = "correct";
+      if (!document.getElementById("secret")) {
+        const p = document.createElement("p");
+        p.id = "secret";
+        p.textContent = SECRET_MESSAGE;
+        holder.appendChild(p);
+      }
+    } else {
+      status.textContent = "Incorrect.";
+      status.className = "incorrect";
+    }
+  }
+
+  document.getElementById("submit").addEventListener("click", check);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+</script>
+</body>
+</html>
