@@ -5,7 +5,7 @@ import math
 
 # ===== SETTINGS =====
 file_name = r"C:\Users\Rishi\Documents\Rishi\Personal\Sarah 2026\Image.txt"
-columns = 262          # Change this to control the image width
+columns = 263          # Change this to control the image width
 pixel_size = 1         # Size of each pixel in the final image
 # ====================
 
